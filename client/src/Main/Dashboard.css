@@ -1,0 +1,35 @@
+.dashbox {
+	border-radius: 2px;
+	border-color: #D1D1D1D1;
+	height: 90vh;
+	background-color: #6699ff;
+	padding: 0px;
+	width: 25vw;
+}
+
+.docs {
+	background-color:  #E1E1E1E1;
+	height: 90vh;
+	width: 75vw;
+}
+
+.avatar {
+	border-radius: 50%;
+	width: 120px;
+	height: 120px;
+	box-shadow: 0 0 2px 3px #E1E1E1E1;
+}
+
+.avatar-box {
+	padding-top: 60px;
+}
+
+.dash-text {
+	color: white;
+	font-size: 22px;
+	margin: 20px;
+}
+
+.dashboard-links {
+	padding-top: 30px;
+}
