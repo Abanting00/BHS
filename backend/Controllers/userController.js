@@ -1,4 +1,7 @@
 const User = require('../Models/UsersModel');
+const bcrpyt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+const randtoken = require('rand-token');
 
 // Display list of all Users.
 exports.user_list = (req, res) => {
@@ -9,33 +12,93 @@ exports.user_list = (req, res) => {
 	});
 };
 
-// Display a user based on their user_id
+// Find user by username
+exports.user_by_username = (req, res) => {
+	const username = req.params.name;
+	const query = User.where({username: username})
 
+	query.findOne((err, user) => {
+		if (err) 
+			return res.json({success: false, error: err})
+		
+		if (user)
+			return res.json({success: true, message: "User Found."});
+		return res.json({success: false, message: "User not found."})
+	})
 
-// Delete a user based on their user_id
+}
 
+// Login a user based on their username and password
+exports.user_login = (req, res) => {
+	const {username,password} = req.body;
+	const query = User.where({username: username})
+	
+	query.findOne((err, user) => {
+		if (err) 
+			return res.json({success: false, error: err})
+		
+		if (user)
+			return user;
+		return res.json({message: "User not found."})
+	})
+	.then(user => {
+		bcrpyt.compare(password, user.password, (err, samepassword) =>{
+			if (samepassword)
+				// If true we need to return a signed jwt token for frontend
+				return res.json({success: true})
+			return res.json({success: false, message: "Wrong Password"});
+		})
+	});
+};
+
+// Delete a user based on their username
+exports.user_delete = (req, res) => {
+	const {username} = req.body;
+	const query = User.where({username: username})
+
+	query.findOneAndDelete((err,user) => {
+		if (err)
+			return res.json({success: false, error: err})
+		if (user)
+			return res.json({success: true})
+		return res.json({message: "User not found"})
+	});
+};
 
 // Update user's information
 
 
 // Update users's role
+exports.user_update_role = (req, res) => {
+	const {username, role} = req.body;
+	query = {username: username}
+
+	User.findOneAndUpdate(query, {role: role}, err => {
+		if (err)
+			return res.json({success: false, error: err})
+		return res.json({success: true})
+	});
+};
 
 // Create a new user in our database
 exports.new_user = (req, res) => {
-
 	const {fname, lname, email, username, password, role} = req.body;
-	const newuser = new User({
-		fname: fname, 
-		lname: lname,
-		email: email,
-		username: username,
-		password: password,
-		role: role
-	});
+	
+	bcrpyt.hash(password, 12)
+		.then(hashedPassword => {
+			const newuser = new User({
+				fname: fname, 
+				lname: lname,
+				email: email,
+				username: username,
+				password: hashedPassword,
+				role: role
+			});
 
-	newuser.save(err => {
-		if (err)
-			return res.json({success: false, error: err});
-		return res.json({success: true})
-	});
+			newuser.save(err => {
+				if (err)
+					return res.json({success: false, error: err});
+				return res.json({success: true})
+			});
+		});
 };
