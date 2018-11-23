@@ -31,14 +31,20 @@ exports.doc_list = (req,res) => {
 };
 
 // Get a single document
-
+exports.get_doc = (req,res) => {
+	Doc.findById(req.params.id, (err,docs) => {
+		if(err)
+			return res.json({success:false, error:err});
+		return res.json({success:true, data:docs});
+	});
+};
 
 // Get document status
 exports.status = (req,res) => {
 	Doc.findById(req.params.id,'is_locked',
-		(err, docs) =>{ 
+		(err, docs) => { 
 			if(err)
-				return res.json({success:false, error:err})
+				return res.json({success:false, error:err});
 			return res.json({success:true, is_locked:docs.is_locked});
 		});
 };
@@ -84,3 +90,10 @@ exports.inc_views = (req,res) => {
 };
 
 // Delete document
+exports.doc_delete = (req,res) => {
+	Doc.findByIdAndRemove(req.params.id,(err,docs) => {
+		if(err)
+			return res.json({success:false, error:err});
+		return res.json({success:true});
+	});
+};
