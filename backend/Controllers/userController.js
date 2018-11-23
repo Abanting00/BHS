@@ -16,7 +16,7 @@ exports.user_list = (req, res) => {
 exports.user_by_username = (req, res) => {
 	const username = req.params.name;
 	const query = User.where({username: username})
-
+k
 	query.findOne((err, user) => {
 		if (err) 
 			return res.json({success: false, error: err})
@@ -43,9 +43,11 @@ exports.user_login = (req, res) => {
 	})
 	.then(user => {
 		bcrpyt.compare(password, user.password, (err, samepassword) =>{
-			if (samepassword)
+			if (samepassword){
 				// If true we need to return a signed jwt token for frontend
-				return res.json({success: true})
+				const token = jwt.sign({id: user._id}, process.env.SECRET, { expiresIn: '1h' });
+				return res.json({success: true, message: "user found!!!", data:{user: user, token: token}});
+			}
 			return res.json({success: false, message: "Wrong Username or Password."});
 		})
 	});
