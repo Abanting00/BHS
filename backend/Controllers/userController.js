@@ -5,7 +5,7 @@ const randtoken = require('rand-token');
 
 // Display list of all Users.
 exports.user_list = (req, res) => {
-	User.find((err,users) => {
+	User.find((err, users) => {
 		if(err)
 			return res.json({success: false, error: err});
 		return res.json({success: true, data: users});	
@@ -43,9 +43,11 @@ exports.user_login = (req, res) => {
 	})
 	.then(user => {
 		bcrpyt.compare(password, user.password, (err, samepassword) =>{
-			if (samepassword)
+			if (samepassword){
 				// If true we need to return a signed jwt token for frontend
-				return res.json({success: true})
+				const token = jwt.sign({id: user._id}, process.env.SECRET, { expiresIn: '1h' });
+				return res.json({success: true, message: "user found!!!", data:{user: user, token: token}});
+			}
 			return res.json({success: false, message: "Wrong Username or Password."});
 		})
 	});
@@ -60,8 +62,8 @@ exports.user_delete = (req, res) => {
 		if (err)
 			return res.json({success: false, error: err})
 		if (user)
-			return res.json({success: true})
-		return res.json({message: "User not found"})
+			return res.json({success: true,  message: "User deleted."})
+		return res.json({success: false, message: "User not found."})
 	});
 };
 
