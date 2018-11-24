@@ -5,7 +5,7 @@ const randtoken = require('rand-token');
 
 // Display list of all Users.
 exports.user_list = (req, res) => {
-	User.find((err,users) => {
+	User.find((err, users) => {
 		if(err)
 			return res.json({success: false, error: err});
 		return res.json({success: true, data: users});	
@@ -16,7 +16,7 @@ exports.user_list = (req, res) => {
 exports.user_by_username = (req, res) => {
 	const username = req.params.name;
 	const query = User.where({username: username})
-k
+
 	query.findOne((err, user) => {
 		if (err) 
 			return res.json({success: false, error: err})
@@ -62,8 +62,8 @@ exports.user_delete = (req, res) => {
 		if (err)
 			return res.json({success: false, error: err})
 		if (user)
-			return res.json({success: true})
-		return res.json({message: "User not found"})
+			return res.json({success: true,  message: "User deleted."})
+		return res.json({success: false, message: "User not found."})
 	});
 };
 

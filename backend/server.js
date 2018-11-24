@@ -15,7 +15,7 @@ validateUser = (req, res, next) => {
 	let token = req.headers.authorization;
 
 	// Make sure that authorization type Bearer
-	if(token.split(' ')[0] != 'Bearer')
+	if(token == null || token.split(' ')[0] != 'Bearer')
 		return  res.json({success: false, message: 'Invalid Authorization'});
 
 	// Verify that the person accessing the api is a valid user based on their token
@@ -42,8 +42,10 @@ db.on("error", console.error.bind(console, "MongoDB connection error:"));
 // Establish All API Routes
 const userRoutes = require('./Routes/userRoutes');
 const docRoutes = require('./Routes/docRoutes');
+const tabooRoutes = require('./Routes/tabooRoutes');
 app.use("/api", userRoutes);
 app.use("/api", validateUser, docRoutes);
+app.use("/api", validateUser, tabooRoutes);
 
 // launch our backend into a port
 app.listen(API_PORT, () => console.log(`LISTENING ON PORT ${API_PORT}`));
