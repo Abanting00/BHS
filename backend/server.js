@@ -22,8 +22,10 @@ db.on("error", console.error.bind(console, "MongoDB connection error:"));
 // Establish All API Routes
 const userRoutes = require('./Routes/userRoutes');
 const docRoutes = require('./Routes/docRoutes');
+const historyRoutes = require('./Routes/historyRoutes');
 app.use("/api", userRoutes);
 app.use("/api", docRoutes);
+app.use("/api", historyRoutes);
 
 // launch our backend into a port
 app.listen(API_PORT, () => console.log(`LISTENING ON PORT ${API_PORT}`));
