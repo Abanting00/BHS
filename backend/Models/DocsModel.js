@@ -2,37 +2,37 @@ const mongoose = require('mongoose');
 const Schema= mongoose.Schema;
 
 const DocSchema = new Schema ({
-	title:{ 
+	title: { 
 		type:String,
 		required: true,
 		max: 100
 	},
-	description:{
+	description: {
 		type:String,
 		required: true,
 		max:150
 	},
 
-	is_locked:{
+	is_locked: {
 		type:Boolean,
 		required: true,
 		default:false
 	},
 
-	permission:{
+	permission: {
 		type:String,
 		required:true,
 		enum: ['restricted','public','shared','private'],
 		default:'public'
 	},
 
-	owner:{
+	owner: {
 		type: Schema.Types.ObjectId,
 		ref:'UserModel',
 		required:true
 	},
 
-	modified:{
+	modified: {
 		type: Date, 
 		default: Date.now 
 	},
@@ -44,4 +44,4 @@ const DocSchema = new Schema ({
 	}
 });
 
-module.exports = mongoose.model('DocModel',DocSchema);
+module.exports = mongoose.model('DocModel', DocSchema);

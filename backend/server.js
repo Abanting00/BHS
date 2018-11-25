@@ -47,9 +47,12 @@ db.on("error", console.error.bind(console, "MongoDB connection error:"));
 // Establish All API Routes
 const userRoutes = require('./Routes/userRoutes');
 const docRoutes = require('./Routes/docRoutes');
+const historyRoutes = require('./Routes/historyRoutes');
 const tabooRoutes = require('./Routes/tabooRoutes');
+
 app.use("/api", userRoutes);
 app.use("/api", validateUser, docRoutes);
+app.use("/api", validateUser, historyRoutes);
 app.use("/api", validateUser, tabooRoutes);
 
 // launch our backend into a port
