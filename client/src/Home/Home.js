@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink } from 'reactstrap';
 import { Container, Row, Col } from 'reactstrap';
 import './Home.css';
-import SignUp from './SignUp';
+import Login from './Login';
 
 class home extends Component {
     constructor(props) {
@@ -53,7 +53,7 @@ class home extends Component {
                                 </h2>
                             </Col>
                             <Col className="signup-col" sm="4">
-                                <SignUp />
+                              <Login />
                             </Col>
                         </Row>
                     </Container>

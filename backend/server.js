@@ -2,10 +2,15 @@ const mongoose = require("mongoose");
 const express = require("express");
 const bodyParser = require("body-parser");
 const jwt = require('jsonwebtoken');
+const cors = require('cors');
 require('dotenv').config();
 
 const API_PORT = process.env.API_PORT || 8000;
 const app = express();
+
+// Allows Cors Origin allowing access to our localhost API in the frontend
+app.use(cors());
+app.options('*', cors());
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());

@@ -1,0 +1,14 @@
+// Constants for Documents
+export const FETCH_DOCS = 'FETCH_DOCS';
+export const NEW_DOC = 'NEW_DOC';
+
+
+// Constants for Users
+export const USER_TYPES = {
+	FETCH_USERS: 'FETCH_USERS',
+	FETCH_USER: 'FETCH_USER',
+	REGISTER_USER: 'REGISTER_USER',
+	LOGIN_USER: 'LOGIN_USER',
+	UPDATE_USER_ROLE: 'UPDATE_USER_ROLE',
+	DELETE_USER: 'DELETE_USER'
+};
