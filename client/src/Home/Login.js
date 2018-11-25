@@ -53,7 +53,7 @@ class Login extends Component {
                         <Input type="password" name="password" onChange={this.onChange}/>
                     </FormGroup>
 
-                    <Button type="submit" className="center-block" outline color="primary" size="lg">Login</Button>
+                    <Button type="submit" outline color="primary" size="lg">Login</Button>
                 </Form>
                </div>
 		);

@@ -1,12 +1,5 @@
 import { USER_TYPES } from './types';
 
-
-const loginData = {
-	username: 'Oreo',
-	password: 'boy123'
-}
-
-
 export const loginUser = (loginData) => dispatch => {
 	const reqOptions = {
 		method: 'POST',
@@ -28,5 +21,23 @@ export const loginUser = (loginData) => dispatch => {
 		})
 };
 
-export const fetchUsers = () => dispatch => {
-}
+export const registerUser = (userData) => dispatch => {
+	const reqOptions = {
+		method: 'POST',
+		headers: {'Content-Type': 'application/json'}, //sending a JSON file in the body 
+		body: JSON.stringify(userData)
+	}
+
+	fetch('http://localhost:8000/api/register', reqOptions)
+		.then(res => res.json()) //getting response and changing to JSON
+		.then(user => {
+			console.log(user);
+			dispatch({
+				type: USER_TYPES.REGISTER_USER,
+				payload: user.success
+			});
+		})
+};
+
+// export const fetchUsers = () => dispatch => {
+// }

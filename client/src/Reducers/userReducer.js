@@ -13,6 +13,11 @@ export default (state = intialState, action) => {
 				...state,
 				status: action.payload
 			};
+		case USER_TYPES.REGISTER_USER:
+			return {
+				...state,
+				status: action.payload
+			};
 		default:
 			return state;
 	}
