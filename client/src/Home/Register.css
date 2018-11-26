@@ -1,7 +1,7 @@
 .register-bg {
 	background: linear-gradient(to bottom left, #3333cc 4%, #6699ff 77%);
 	height: 100vh;
-	overflow: hidden;	/*gets rid of scrolling*/
+	overflow: hidden;	/*gets rid of scrolling */
 }
 
 .register {

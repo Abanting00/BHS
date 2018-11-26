@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router';
 import { Form, FormGroup, Label, Input, Button } from 'reactstrap';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { loginUser } from '../Actions/userActions';
+import { isloggedIn } from '../Helper/authHeader';
 import './login.css';
 
 class Login extends Component {
@@ -11,7 +13,8 @@ class Login extends Component {
 
         this.state = {
             username: '',
-            password: ''
+            password: '',
+            loggedIn: isloggedIn()
         }
 
         this.onChange = this.onChange.bind(this);
@@ -33,29 +36,46 @@ class Login extends Component {
         }
 
         this.props.loginUser(user);
+
+        if(this.props.status) {
+            this.setState({
+                loggedIn: true
+            })
+        }
     }
 
 	render() {
         console.log(this.props.status)
+        console.log(this.state.password)
+        let screen;
+
+        if (this.state.loggedIn){
+            screen = <Redirect to='/dashboard' />
+        }else{
+            screen =    <div className="login">
+                            <Form onSubmit={this.onSubmit}>
+                                <h2>Login</h2>
+                                <br/>
+
+                                <FormGroup>
+                                    <Label>Username</Label>
+                                    <Input type="username" name="username" onChange={this.onChange}/>
+                                 </FormGroup>
+
+                                <FormGroup>
+                                    <Label>Password</Label>
+                                    <Input type="password" name="password" onChange={this.onChange}/>
+                                </FormGroup>
+
+                                <Button type="submit" outline color="primary" size="lg">Login</Button>
+                            </Form>
+                        </div>
+        }
+
 		return (
-               <div className="login">
-     			<Form onSubmit={this.onSubmit}>
-                    <h2>Login</h2>
-                    <br/>
-
-                    <FormGroup>
-                        <Label>Username</Label>
-                        <Input type="username" name="username" onChange={this.onChange}/>
-                     </FormGroup>
-
-                    <FormGroup>
-                        <Label>Password</Label>
-                        <Input type="password" name="password" onChange={this.onChange}/>
-                    </FormGroup>
-
-                    <Button type="submit" outline color="primary" size="lg">Login</Button>
-                </Form>
-               </div>
+              <div>
+                {screen}
+              </div>
 		);
 	}
 }
