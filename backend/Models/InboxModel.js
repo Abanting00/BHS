@@ -23,7 +23,7 @@ const InboxSchema = new Schema({
 		ref:'UserModel'
 		required: true 
 	},
-	sent: {
+	sent_date: {
 		type: Date,
 		default: Date.now 
 	},
