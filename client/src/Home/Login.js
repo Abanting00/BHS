@@ -45,8 +45,6 @@ class Login extends Component {
     }
 
 	render() {
-        console.log(this.props.status)
-        console.log(this.state.password)
         let screen;
 
         if (this.state.loggedIn){
