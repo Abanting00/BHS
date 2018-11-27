@@ -3,15 +3,14 @@ const Doc = require('../Models/DocsModel');
 // Create a new Document
 exports.new_doc = (req,res) =>{
 
-	const{title,description,is_locked,permission,owner,modified,views} = req.body;
+	const{title,description,body,is_locked,permission,owner} = req.body;
 	const newdoc = new Doc({
 		title:title,
 		description:description,
+		body:body,
 		is_locked:is_locked,
 		permission:permission,
-		owner:owner,
-		modified:modified,
-		views:views
+		owner:owner
 	});
 
 	newdoc.save(err => {
@@ -49,11 +48,21 @@ exports.status = (req,res) => {
 		});
 };
 
+// Get body
+exports.get_body = (req,res) => {
+	Doc.findById(req.params.id,'body',
+		(err, docs) => { 
+			if(err)
+				return res.json({success:false, error:err});
+			return res.json({success:true, body:docs.body});
+		});
+};
+
 //Change Document Status (locked/unlocked)
 exports.change_status = (req,res) => {
  	Doc.findById(req.params.id,(err,docs) => {
  		if(err)
- 			return res.json({success:false,error:err});
+ 			return res.json({success:false, error:err});
  		docs.is_locked = !(docs.is_locked);
  		
  		docs.save(err => {
@@ -62,6 +71,22 @@ exports.change_status = (req,res) => {
 			return res.json({success:true});
 		});
  	});
+};
+
+//Change the body
+exports.change_body = (req,res) => {
+	Doc.findById(req.params.id,(err,docs) => {
+		if(err)
+			return res.json({success:false, error:err});
+		docs.version++;
+		docs.body = req.body.body; 
+
+		docs.save(err => {
+			if(err)
+				return res.json({success:false, error:err});
+			return res.json({success:true});
+		});
+	});
 };
 
 // Get the owner of a document 

@@ -8,9 +8,14 @@ const HistorySchema = new Schema ({
 		required: true
 	},
 
-	document: {
+	doc_id: {
 		type: Schema.Types.ObjectId,
 		ref: 'DocModel',
+		required: true
+	},
+
+	body: { 
+		type: String,
 		required: true
 	},
 

@@ -15,6 +15,11 @@ router.get('/docs/:id',docController.get_doc);
 // return current document status
 router.get('/docs/status/:id',docController.status);
 
+// return document body using document id
+router.get('/docs/body/:id',docController.get_body);
+
+router.put('/docs/body/:id',docController.change_body);
+
 // return document owner
 router.get('/docs/owner/:id',docController.get_owner);
 

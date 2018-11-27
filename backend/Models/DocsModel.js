@@ -3,44 +3,54 @@ const Schema= mongoose.Schema;
 
 const DocSchema = new Schema ({
 	title: { 
-		type:String,
+		type: String,
 		required: true,
 		max: 100
 	},
 	description: {
-		type:String,
+		type: String,
 		required: true,
-		max:150
+		max: 150
+	},
+
+	body: {
+		type: String
+	},
+
+	version: { 
+		type: Number,
+		required: true,
+		default: 1
 	},
 
 	is_locked: {
-		type:Boolean,
+		type: Boolean,
 		required: true,
-		default:false
+		default: false
 	},
 
 	permission: {
-		type:String,
-		required:true,
+		type: String,
+		required: true,
 		enum: ['restricted','public','shared','private'],
-		default:'public'
+		default: 'public'
 	},
 
 	owner: {
 		type: Schema.Types.ObjectId,
 		ref:'UserModel',
-		required:true
-	},
-
-	modified: {
-		type: Date, 
-		default: Date.now 
+		required: true
 	},
 
 	views: {
 		type: Number, 
 		default: 0,
 		required: true
+	},
+
+	modified: {
+		type: Date, 
+		default: Date.now 
 	}
 });
 

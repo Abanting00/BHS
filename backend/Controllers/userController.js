@@ -31,11 +31,11 @@ exports.user_by_username = (req, res) => {
 // Login a user based on their username and password
 exports.user_login = (req, res) => {
 	const {username,password} = req.body;
-	const query = User.where({username: username})
+	const query = User.where({username: username});
 	
 	query.findOne((err, user) => {
 		if (err) 
-			return res.json({success: false, error: err})
+			return res.json({success: false, error: err});
 		
 		if (user)
 			return user;

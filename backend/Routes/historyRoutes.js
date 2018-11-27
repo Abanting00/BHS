@@ -7,7 +7,7 @@ const historyController = require('../Controllers/historyController');
 router.post('/history', historyController.new_version);
 
 // get version history
-router.get('/history', historyController.version_history);
+router.get('/history/:doc_id', historyController.version_history);
 
 // get specific version
 router.get('/history/:id', historyController.get_version);
