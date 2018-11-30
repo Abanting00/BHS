@@ -35,23 +35,6 @@ class dashboard extends Component {
   render() {
       return (
           <div>
-              <div className="navHome">
-              	<Navbar color="faded" light expand="md">
-                      <NavbarBrand href='/' className="mr-auto">B.H.S </NavbarBrand>
-                      <Collapse navbar>
-                          <Nav className="ml-auto" navbar>
-                            <NavItem>
-                              <NavLink href="/">Account</NavLink>
-                            </NavItem>
-                            <NavItem>
-                              <NavLink href="/">Logout</NavLink>
-                            </NavItem>
-                          </Nav>
-                      </Collapse>
-                  </Navbar>
-              </div>
-
-
               <div className="dashboard">
                 <Container fluid={true}>
                   <Row>

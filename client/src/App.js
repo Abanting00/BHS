@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Routes from './Routes';
 import { Provider } from 'react-redux';
 import store from './store';
-
+import Navs from './Home/Nav';
 import Login from './Home/Login';
 
 class App extends Component {
@@ -10,8 +10,9 @@ class App extends Component {
     return (
     	<Provider store={store}>
 			<div className="App">
+				<Navs />
 	        	<Routes />
-      	</div>
+      		</div>
 	    </Provider>
     );
   }
