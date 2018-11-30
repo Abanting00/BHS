@@ -1,9 +1,7 @@
 import React, {Component} from 'react';
-import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink } from 'reactstrap';
-import { Card, CardTitle, CardText, CardImg, CardImgOverlay } from 'reactstrap';
+import { Card, CardTitle, CardImg } from 'reactstrap';
 import { CardBody, Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { Container, Row, Col } from 'reactstrap';
-import Sidebar from "react-sidebar";
 import './Dashboard.css';
 import avatar from './head.jpg';
 

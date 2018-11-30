@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { Col, Row, Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
-import PropTypes from 'prop-types';
+import { Col, Row, Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import { connect } from 'react-redux';
 import { registerUser } from '../Actions/userActions';
 import './Register.css';

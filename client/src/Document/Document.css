@@ -8,17 +8,11 @@ textarea {
     font-size: 16px;
     resize: none;
     box-shadow: 0 0 3px 3px #E1E1E1E1;
+    overflow-y: hidden;
 }
 
 .doc-bg {
-    padding: 50px 200px;
+    padding: 50px 0px;
+    margin: 0 auto;
     background-color: #EEEEEE;
-}
-
-.navDoc {
-    margin-right: 30px;
-}
-
-td {
-    font-weight: normal;
 }

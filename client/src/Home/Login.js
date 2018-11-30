@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router';
 import { Form, FormGroup, Label, Input, Button } from 'reactstrap';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { loginUser } from '../Actions/userActions';
 import { isloggedIn } from '../Helper/authHeader';
