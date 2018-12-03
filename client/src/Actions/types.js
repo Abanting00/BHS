@@ -2,7 +2,8 @@
 export const DOC_TYPES = {
 	FETCH_DOCS: 'FETCH_DOCS',
 	FETCH_DOC: 'FETCH_DOC',
-	NEW_DOC: 'NEW_DOC'
+	NEW_DOC: 'NEW_DOC',
+	SAVE_DOC: 'SAVE_DOC'
 }
 
 

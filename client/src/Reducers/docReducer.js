@@ -2,7 +2,8 @@ import { DOC_TYPES } from '../Actions/types';
 
 const intialState = {
 	items: [],
-	item: {}
+	item: {},
+	body:""
 }
 
 export default function(state = intialState, action) {
@@ -22,6 +23,10 @@ export default function(state = intialState, action) {
 			return {
 				...state,
 				item: action.payload
+			}
+		case DOC_TYPES.SAVE_DOC:
+			return {
+				saveStatus: action.payload
 			}
 		default: 
 			return state;

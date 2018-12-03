@@ -80,6 +80,7 @@ exports.change_body = (req,res) => {
 			return res.json({success:false, error:err});
 		docs.version++;
 		docs.body = req.body.body; 
+		docs.modified = Date.now;
 
 		docs.save(err => {
 			if(err)

@@ -1,6 +1,6 @@
-textarea {
+.body {
     width: 1000px;
-    height: 1450px;
+    height: 1250px;
     padding: 12px 20px;
     box-sizing: border-box;
     border: 1px solid #D1D1D1;
@@ -8,11 +8,15 @@ textarea {
     font-size: 16px;
     resize: none;
     box-shadow: 0 0 3px 3px #E1E1E1E1;
+    word-wrap: break-word;
     overflow-y: hidden;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    outline: none;
 }
 
 .doc-bg {
     padding: 50px 0px;
-    margin: 0 auto;
     background-color: #EEEEEE;
 }
