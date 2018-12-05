@@ -30,7 +30,7 @@ class home extends Component {
                                            pagination-centered">
                                            B.H.S Document </h1>
                               <h2 className="sub-slogan text-center ">
-                                  Collaborate <span class="dot"></span> Create <span class="dot"></span> Write
+                                  Collaborate <span className="dot"></span> Create <span className="dot"></span> Write
                               </h2>
                           </Col>
                           <Col className="signup-col" sm="4">

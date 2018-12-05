@@ -1,29 +1,25 @@
 import React, { Component } from 'react';
-import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink } from 'reactstrap';
-
-let path = window.location.pathname;
+import { Navbar, NavbarBrand, Nav, NavItem, NavLink } from 'reactstrap';
+import { Logout } from "../Helper/authHeader";
+import { withRouter } from 'react-router-dom';
 
 function Login(){
-	return <NavLink href="/">Login</NavLink> //couldn't get ES6 syntax working D: was giving me error so i changed  back to function
-}
-
-function Logout(){
-	return <NavLink href="/">Logout</NavLink>
+	return <NavLink href="/">Login</NavLink> 
 }
 
 function Register() {
 	return <NavLink href="/register">Sign Up</NavLink>
 }
 
-function HomeNav() {
+function HomeNav(path) {
 	return (
 		<Nav className="ml-auto" navbar>
 			<NavItem>
 				<NavLink href="/">About</NavLink>
 			</NavItem>
 			<NavItem>
-			{path == '/register' && <Login />} 
-			{path == '/' && <Register />}  
+				{path.path === '/register' && <Login />} 
+				{path.path === '/' && <Register />}  
 			</NavItem>
 		</Nav>
 		)
@@ -36,25 +32,32 @@ function DashboardNav() {
 				<NavLink>Inbox</NavLink>
 			</NavItem>
 			<NavItem>
-				<Logout />
+				<NavLink href="/" onClick={Logout()}>Logout</NavLink>
 			</NavItem>
 		</Nav>
 	);
 };
 
-function NavSwitch() {
-	if((path == '/register') || (path == '/')){
-		return <HomeNav />
+function NavSwitch(path) {
+	let currPath = path.path
+	console.log(currPath);
+	if((currPath === '/register') || (currPath === '/')){
+		return <HomeNav path = {currPath}/>;
 	}
-	return <DashboardNav />
+	return <DashboardNav />;
 }
+
+// Two problems:
+// 1. Logout() being triggered when you refresh or click on BHS
+// 2. For some reason when you log in, path changes to "dashboard", but then changes to "/" immediately after
+
 class Navs extends Component {
 	render() {
 		return (
 			<div className = "navHome">
 				<Navbar light expand="md">
 					<NavbarBrand href="/">B.H.S</NavbarBrand>
-					<NavSwitch />
+					<NavSwitch path = {this.props.location.pathname}/>
 				</Navbar>
 			</div>
 
@@ -62,4 +65,4 @@ class Navs extends Component {
 	};
 };
 
-export default Navs;
+export default withRouter(Navs);

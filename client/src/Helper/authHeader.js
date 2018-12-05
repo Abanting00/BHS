@@ -5,6 +5,10 @@ export const authHeader = () => {
     return {'Content-Type': 'application/json'};
 }
 
+export const Logout = () => {
+	localStorage.removeItem('user');
+}
+
 export const isloggedIn = () => {
 	let user = JSON.parse(localStorage.getItem('user'));
 	return (user && user.token);

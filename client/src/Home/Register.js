@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Col, Row, Button, Form, FormGroup, Label, Input } from 'reactstrap';
+// import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { registerUser } from '../Actions/userActions';
 import './Register.css';
@@ -13,12 +14,14 @@ class Register extends Component {
 			lastname: '',
 			email: '',
 			username: '',
-			password: ''
+			password: '',
+			redirect: false
 		}
 
 		this.onChange = this.onChange.bind(this);
 		this.onSubmit = this.onSubmit.bind(this);
 	}
+
 
 	onChange(e) {
 		this.setState({
