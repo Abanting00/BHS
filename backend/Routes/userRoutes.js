@@ -22,6 +22,9 @@ router.put('/user/updateRole', UserController.user_update_role);
 // Update user photo
 router.put('/user/:username/updatePhoto', UserController.user_update_img);
 
+// Update user interests
+router.put('/user/updateInterests', UserController.user_update_interests);
+
 // Delete a user in the database based on their username
 router.delete('/user/remove', UserController.user_delete);
 

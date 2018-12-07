@@ -88,6 +88,17 @@ exports.user_update_img = (req, res) => {
 	});
 };
 
+exports.user_update_interests = (req, res) => {
+	const {username, interests} = req.body;
+	const query = {username: username}
+
+	User.findOneAndUpdate(query, {interests: interests}, err => {
+		if (err)
+			return res.json({success: false, error: err})
+		return res.json({success: true})
+	});
+};
+
 
 // Update users's role
 exports.user_update_role = (req, res) => {
@@ -100,6 +111,7 @@ exports.user_update_role = (req, res) => {
 		return res.json({success: true})
 	});
 };
+
 
 // Create a new user in our database
 exports.new_user = (req, res) => {
@@ -114,7 +126,6 @@ exports.new_user = (req, res) => {
 				username: username,
 				password: hashedPassword,
 				role: role
-				interests: interests
 			});
 
 			newuser.save(err => {

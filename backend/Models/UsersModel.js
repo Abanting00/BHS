@@ -35,6 +35,10 @@ const UserSchema = new Schema({
 		required: true, 
 		enum: ['SU', 'GU', 'OU'], 
 		default: 'GU'
+	},
+	interests: {
+		type: Array,
+		default: []
 	}
 });
 
