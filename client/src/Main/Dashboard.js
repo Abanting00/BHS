@@ -1,6 +1,4 @@
 import React, {Component} from 'react';
-import { Card, CardTitle, CardImg } from 'reactstrap';
-import { CardBody, Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { Container, Row, Col } from 'reactstrap';
 import './Dashboard.css';
 import avatar from './head.jpg';
