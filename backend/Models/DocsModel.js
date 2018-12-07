@@ -32,8 +32,8 @@ const DocSchema = new Schema ({
 	permission: {
 		type: String,
 		required: true,
-		enum: ['restricted','public','shared','private'],
-		default: 'public'
+		enum: ['Restricted','Public','Shared','Private'],
+		default: 'Public'
 	},
 
 	owner: {

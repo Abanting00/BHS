@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router';
-import { Form, FormGroup, Label, Input, Button } from 'reactstrap';
+import { Alert, Form, FormGroup, Label, Input, Button } from 'reactstrap';
 import { connect } from 'react-redux';
 import { loginUser } from '../Actions/userActions';
 import { isloggedIn } from '../Helper/authHeader';
@@ -13,7 +13,8 @@ class Login extends Component {
         this.state = {
             username: '',
             password: '',
-            loggedIn: isloggedIn()
+            loggedIn: isloggedIn(),
+            failed: undefined
         }
 
         this.onChange = this.onChange.bind(this);
@@ -35,15 +36,23 @@ class Login extends Component {
         }
 
         this.props.loginUser(user);
-
-        if(this.props.status) {
+        
+        if(!this.props.status){
             this.setState({
-                loggedIn: true
+                failed: true
             })
         }
     }
 
+    componentWillReceiveProps(nextProps) {
+    this.setState({
+      loggedIn: nextProps.status,
+      failed: nextProps.status
+    })
+  }
+
 	render() {
+        console.log(this.state.failed)
         let screen;
 
         if (this.state.loggedIn){
@@ -56,12 +65,12 @@ class Login extends Component {
 
                                 <FormGroup>
                                     <Label>Username</Label>
-                                    <Input type="username" name="username" onChange={this.onChange}/>
+                                    <Input type="username" name="username" onChange={this.onChange} />
                                  </FormGroup>
 
                                 <FormGroup>
                                     <Label>Password</Label>
-                                    <Input type="password" name="password" onChange={this.onChange}/>
+                                    <Input type="password" name="password" onChange={this.onChange} />
                                 </FormGroup>
 
                                 <Button type="submit" outline color="primary" size="lg">Login</Button>
@@ -71,6 +80,7 @@ class Login extends Component {
 
 		return (
               <div>
+                {this.state.failed && <Alert color="danger">Invalid Username or Password!</Alert>}
                 {screen}
               </div>
 		);

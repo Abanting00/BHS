@@ -8,7 +8,8 @@ class document extends Component {
     super(props);
 
     this.state = {
-      body: this.props.body
+      body: this.props.body,
+      id: this.props.location.state.id 
     }
 
     this.onChange = this.onChange.bind(this);
@@ -16,8 +17,7 @@ class document extends Component {
   }
 
   componentWillMount() {
-    const id = "5bfdc6516ee56a4118ecc098"
-    this.props.fetchDoc(id);
+    this.props.fetchDoc(this.state.id);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -34,7 +34,7 @@ class document extends Component {
 
   onSubmit() {
     const docData = {
-      id: "5bfdc6516ee56a4118ecc098",
+      id: this.state.id,
       body: this.state.body
     }
 
@@ -42,12 +42,8 @@ class document extends Component {
 
   }
 
-  replaceTaboo() {
-
-  }
-
   render() {
-    console.log(this.props.body)
+    console.log(this.state.id)
     return (
       <div className="doc-bg">
           <button onClick={this.onSubmit}>Save</button> 

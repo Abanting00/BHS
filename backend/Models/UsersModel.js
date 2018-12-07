@@ -24,6 +24,12 @@ const UserSchema = new Schema({
 		type:String, 
 		required: true
 	},
+	image: {
+		type: String,
+		data: Buffer,
+		required: true,
+		default: ''
+	},
 	role: {
 		type: String,
 		required: true, 

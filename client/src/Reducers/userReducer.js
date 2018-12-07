@@ -3,7 +3,7 @@ import { USER_TYPES } from '../Actions/types';
 const intialState = {
 	users: [],
 	user: {},
-	status: true
+	status: false
 }
 
 export default (state = intialState, action) => {

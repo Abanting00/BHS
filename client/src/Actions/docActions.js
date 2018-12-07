@@ -7,13 +7,9 @@ export const fetchDoc = (docid) => dispatch => {
 		method: 'GET',
 		headers: header
 	}
-
-	console.log(header);
-
 	fetch(`http://localhost:8000/api/docs/${docid}`, reqOptions)
 		.then(res => res.json())
 		.then(doc => {
-			console.log(doc)
 			dispatch({
 				type: DOC_TYPES.FETCH_DOC,
 				payload: doc
@@ -28,7 +24,6 @@ export const saveDoc = (doc) => dispatch => {
 		headers: header,
 		body: JSON.stringify(doc)
 	}
-
 
 	fetch(`http://localhost:8000/api/docs/body/${doc.id}`, reqOptions)
 		.then(res => res.json())

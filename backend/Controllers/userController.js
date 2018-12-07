@@ -2,6 +2,8 @@ const User = require('../Models/UsersModel');
 const bcrpyt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const randtoken = require('rand-token');
+const fs = require("fs");
+
 
 // Display list of all Users.
 exports.user_list = (req, res) => {
@@ -67,7 +69,24 @@ exports.user_delete = (req, res) => {
 	});
 };
 
-// Update user's information
+// Update user's photo
+exports.user_update_img = (req, res) => {
+	const {username} = req.params.username;
+	const query = User.where({username: username})
+
+	query.findOne((err, user) => {
+		if(err)	
+			return res.json({success:false, error:err});
+		user.image.data = fs.readFileSync(req.body.userPhoto);
+		user.image.type = 	'image/png';
+		user.save(err => {
+			if(err)
+				return res.json({success:false, error:err});
+			return res.json({success:true})
+
+		})
+	});
+};
 
 
 // Update users's role
@@ -85,7 +104,7 @@ exports.user_update_role = (req, res) => {
 // Create a new user in our database
 exports.new_user = (req, res) => {
 	const {fname, lname, email, username, password, role} = req.body;
-	
+
 	bcrpyt.hash(password, 12)
 		.then(hashedPassword => {
 			const newuser = new User({

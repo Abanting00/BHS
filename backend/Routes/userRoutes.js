@@ -17,7 +17,10 @@ router.post('/login', UserController.user_login);
 router.post('/register', UserController.new_user);
 
 // Update user role, takes in their username and role privelige
-router.post('/user/updateRole', UserController.user_update_role);
+router.put('/user/updateRole', UserController.user_update_role);
+
+// Update user photo
+router.put('/user/:username/updatePhoto', UserController.user_update_img);
 
 // Delete a user in the database based on their username
 router.delete('/user/remove', UserController.user_delete);

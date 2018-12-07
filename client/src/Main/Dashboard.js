@@ -4,6 +4,7 @@ import { CardBody, Button, Modal, ModalHeader, ModalBody, ModalFooter } from 're
 import { Container, Row, Col } from 'reactstrap';
 import './Dashboard.css';
 import avatar from './head.jpg';
+import CardList from './CardList';
 
 
 class dashboard extends Component {
@@ -56,106 +57,9 @@ class dashboard extends Component {
                     </Col>
                     
 
-                    <Col xs="auto" style={{padding: 0}}>
-                      
+                    <Col style={{padding: '0'}}>
                       <div className="docs">
-                        <Row style={{padding: '40px 10px', width: '75vw', margin:0}}>
-                          <Col sm="4">
-                            <Card>
-                              <CardImg top width="100%" src="https://dummyimage.com/318x180/ffffff/ffffff.jpg" alt="Card image cap" />
-                              <CardBody>
-                                  <CardTitle className="text-center">Document Title</CardTitle>
-                                  
-                                  <Button color="info" 
-                                          onClick={this.toggle}
-                                          style={{display: "block", margin: "0 auto"}}
-                                          >Open Document</Button>
-                                    <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
-                                      <ModalHeader toggle={this.toggle}>Cats and Dogs</ModalHeader>
-                                      <ModalBody>
-
-                                        <p className="text-center">
-                                          This document is about cats and dogs.
-                                        </p>
-
-                                        <p className="text-center">
-                                          Status: <span style={{color: 'green'}}>Open</span>
-                                        </p>
-                                      </ModalBody>
-                                      <ModalFooter>
-                                        <Button color="primary" onClick={this.toggle}>Edit Doc</Button>{' '}
-                                        <Button color="secondary" onClick={this.toggle}>Cancel</Button>
-                                      </ModalFooter>
-                                    </Modal> 
-                              </CardBody>
-                            </Card>
-                          </Col>
-
-                            <Col sm="4">
-                            <Card>
-                              <CardImg top width="100%" src="https://dummyimage.com/318x180/ffffff/ffffff.jpg" alt="Card image cap" />
-                              <CardBody>
-                                  <CardTitle className="text-center">Software Notes</CardTitle>
-                                  
-                                  <Button color="info" 
-                                          onClick={this.toggle}
-                                          style={{display: "block", margin: "0 auto"}}
-                                          >Open Document</Button>
-                                    <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
-                                      <ModalHeader toggle={this.toggle}>Cats and Dogs</ModalHeader>
-                                      <ModalBody>
-
-                                        <p className="text-center">
-                                          This document is about cats and dogs.
-                                        </p>
-
-                                        <p className="text-center">
-                                          Status: <span style={{color: 'green'}}>Open</span>
-                                        </p>
-                                      </ModalBody>
-                                      <ModalFooter>
-                                        <Button color="primary" onClick={this.toggle}>Edit Doc</Button>{' '}
-                                        <Button color="secondary" onClick={this.toggle}>Cancel</Button>
-                                      </ModalFooter>
-                                    </Modal> 
-                              </CardBody>
-                            </Card>
-                          </Col>
-
-                            <Col sm="4">
-                            <Card>
-                              <CardImg top width="100%" src="https://dummyimage.com/318x180/ffffff/ffffff.jpg" alt="Card image cap" />
-                               <CardBody>
-                                  <CardTitle className="text-center">Cats and Dogs</CardTitle>
-                                  
-                                  <Button color="info" 
-                                          onClick={this.toggle}
-                                          style={{display: "block", margin: "0 auto"}}
-                                          >Open Document</Button>
-                                    <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
-                                      <ModalHeader toggle={this.toggle}>Cats and Dogs</ModalHeader>
-                                      <ModalBody>
-
-                                        <p className="text-center">
-                                          This document is about cats and dogs.
-                                        </p>
-
-                                        <p className="text-center">
-                                          Document Permission: Public                                        </p>
-
-                                        <p className="text-center">
-                                          Document Status: <span style={{color: 'green'}}>Open</span>
-                                        </p>
-                                      </ModalBody>
-                                      <ModalFooter>
-                                        <Button color="primary" onClick={this.toggle}>Edit Doc</Button>{' '}
-                                        <Button color="secondary" onClick={this.toggle}>Cancel</Button>
-                                      </ModalFooter>
-                                    </Modal> 
-                              </CardBody>
-                            </Card>
-                          </Col>
-                        </Row>
+                        <CardList/>
                       </div>
                     </Col>
                   </Row>
