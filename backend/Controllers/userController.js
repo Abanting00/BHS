@@ -103,7 +103,7 @@ exports.user_update_role = (req, res) => {
 
 // Create a new user in our database
 exports.new_user = (req, res) => {
-	const {fname, lname, email, username, password, role} = req.body;
+	const {fname, lname, email, username, password, role,interests} = req.body;
 
 	bcrpyt.hash(password, 12)
 		.then(hashedPassword => {
@@ -114,6 +114,7 @@ exports.new_user = (req, res) => {
 				username: username,
 				password: hashedPassword,
 				role: role
+				interests: interests
 			});
 
 			newuser.save(err => {
