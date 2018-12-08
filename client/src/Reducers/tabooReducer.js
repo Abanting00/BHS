@@ -1,4 +1,4 @@
-import {TABOO_TYPES} from '../Actions/type';
+import {TABOO_TYPES} from '../Actions/types';
 
 const initialState = {
 	items: [],
@@ -7,10 +7,10 @@ const initialState = {
 
 export default function(state = initialState, action) {
 	switch(action.type){
-		case FETCH_TABOO:
+		case TABOO_TYPES.FETCH_TABOO:
 			return {
 				...state,
-				items: action.payload
+				items: action.payload.data
 			};
 		default:
 			return state;

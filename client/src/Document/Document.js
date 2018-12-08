@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import { fetchDoc, saveDoc } from '../Actions/docActions';
+import { fetchTabooList } from '../Actions/tabooActions';
 import './Document.css';
 
 class document extends Component {
@@ -18,6 +19,7 @@ class document extends Component {
 
   componentWillMount() {
     this.props.fetchDoc(this.state.id);
+    this.props.fetchTabooList();
   }
 
   componentWillReceiveProps(nextProps) {
@@ -33,17 +35,31 @@ class document extends Component {
   }
 
   onSubmit() {
+    const x = this.props.words
+    let tabooWords = []
+    x.map(x => tabooWords.push(x.word));
+    let currentBody = this.state.body;
+    let editedBody = currentBody;
+
+    for(let i = 0; i < tabooWords.length; i++){
+      let edit = new RegExp('\\b('+tabooWords[i]+')\\b',"g"); 
+      editedBody = editedBody.replace(edit, "UNK");
+    }
+
+
+    this.setState({
+      body: editedBody
+    })
+
     const docData = {
       id: this.state.id,
       body: this.state.body
     }
-
     this.props.saveDoc(docData);
 
   }
 
   render() {
-    console.log(this.state.id)
     return (
       <div className="doc-bg">
           <button onClick={this.onSubmit}>Save</button> 
@@ -59,8 +75,9 @@ class document extends Component {
 
 const mapStateToProps = state => ({
   doc: state.docs.doc,
-  body: state.docs.body
+  body: state.docs.body,
+  words: state.words.items
 })
 
 
-export default connect(mapStateToProps, { fetchDoc, saveDoc })(document);
+export default connect(mapStateToProps, { fetchDoc, saveDoc, fetchTabooList })(document);
