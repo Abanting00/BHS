@@ -42,10 +42,9 @@ class document extends Component {
     let editedBody = currentBody;
 
     for(let i = 0; i < tabooWords.length; i++){
-      let edit = new RegExp('\\b('+tabooWords[i]+')\\b',"g"); 
+      let edit = new RegExp('\\b('+tabooWords[i]+')\\b',"gi"); 
       editedBody = editedBody.replace(edit, "UNK");
     }
-
 
     this.setState({
       body: editedBody
@@ -53,10 +52,9 @@ class document extends Component {
 
     const docData = {
       id: this.state.id,
-      body: this.state.body
+      body: editedBody
     }
     this.props.saveDoc(docData);
-
   }
 
   render() {
