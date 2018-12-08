@@ -52,7 +52,6 @@ class Login extends Component {
   }
 
 	render() {
-        console.log(this.state.failed)
         let screen;
 
         if (this.state.loggedIn){

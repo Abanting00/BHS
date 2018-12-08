@@ -55,7 +55,7 @@ class document extends Component {
       </div>
     );
   }
-};
+};    
 
 const mapStateToProps = state => ({
   doc: state.docs.doc,

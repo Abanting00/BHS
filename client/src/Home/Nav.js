@@ -32,7 +32,7 @@ function DashboardNav() {
 				<NavLink>Inbox</NavLink>
 			</NavItem>
 			<NavItem>
-				<NavLink href="/" onClick={Logout()}>Logout</NavLink>
+				<NavLink href="/" onClick={() => {Logout()}}>Logout</NavLink>
 			</NavItem>
 		</Nav>
 	);
