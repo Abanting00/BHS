@@ -1,6 +1,23 @@
 import { DOC_TYPES } from './types';
 import { authHeader } from '../Helper/authHeader';
 
+export const fetchDocs = () => dispatch => {
+	const header = authHeader();
+	const reqOptions = {
+		method: 'GET',
+		headers: header
+	}
+
+	fetch("http://localhost:8000/api/docs/", reqOptions)
+		.then(res => res.json())
+		.then(docs => {
+			dispatch({
+				type: DOC_TYPES.FETCH_DOCS,
+				payload: docs
+			});
+		})
+
+}
 export const fetchDoc = (docid) => dispatch => {
 	const header = authHeader();
 	const reqOptions = {
@@ -17,6 +34,24 @@ export const fetchDoc = (docid) => dispatch => {
 		})
 };
 
+export const newDoc = (doc) => dispatch => {
+	const header = authHeader();
+	const reqOptions = {
+		method: 'POST',
+		headers: header,
+		body: JSON.stringify(doc)
+	}
+
+	fetch("http://localhost:8000/api/docs/", reqOptions)
+		.then(res => res.json())
+		.then(doc => {
+			dispatch({
+				type: DOC_TYPES.NEW_DOC,
+				payload: doc
+			});
+		})
+}
+
 export const saveDoc = (doc) => dispatch => {
 	const header = authHeader();
 	const reqOptions = {
@@ -30,7 +65,7 @@ export const saveDoc = (doc) => dispatch => {
 		.then(doc => {
 			dispatch({
 				type: DOC_TYPES.SAVE_DOC,
-				payload: doc.success
+				payload: doc
 			});
 		})
 };

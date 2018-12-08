@@ -13,3 +13,8 @@ export const isloggedIn = () => {
 	let user = JSON.parse(localStorage.getItem('user'));
 	return (user && user.token);
 }
+
+export const getUserID = () => {
+	let user = JSON.parse(localStorage.getItem('user'));
+	return user.user._id;
+}

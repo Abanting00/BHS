@@ -7,9 +7,19 @@
 	width: 20vw;
 }
 
-.docs {
+#docs {
 	background-color:  #E1E1E1E1;
 	height: 90vh;
+	overflow: hidden;
+}
+
+#list {
+	padding-right: 17px;
+	overflow-y: scroll;
+	height: 100%;
+    width: 100%;
+    box-sizing: content-box; 
+
 }
 
 .avatar {
@@ -25,8 +35,11 @@
 
 .dash-text {
 	color: white;
-	font-size: 22px;
-	margin: 20px;
+	font-size: 25px;
+	margin: 5px;
+	border: none;
+  	cursor: pointer;
+  	background: transparent;
 }
 
 .dashboard-links {

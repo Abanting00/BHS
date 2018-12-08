@@ -59,8 +59,7 @@ class DashboardCard extends Component {
 						</p>
 					</ModalBody>
 					<ModalFooter>
-						<Button color="primary" onClick={this.toggleEdit}>Edit Doc</Button>{' '}
-						<Button color="secondary" onClick={this.toggle}>Cancel</Button>
+						{!this.props.locked ? <Button color="primary" onClick={this.toggleEdit}>Edit Doc</Button> : <Button color="primary" disabled onClick={this.toggleEdit}>Edit Doc</Button>}
 					</ModalFooter>
 				</Modal> 
 				{screen}
