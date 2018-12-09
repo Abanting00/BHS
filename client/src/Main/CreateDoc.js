@@ -23,8 +23,8 @@ class CreateDoc extends Component {
 	}
 
 	onChange(e) {
-		if(e.target.name == 'locked'){
-			let boolVal = e.target.value == 'Yes' ? true : false;
+		if(e.target.name === 'locked'){
+			let boolVal = e.target.value === 'Yes' ? true : false;
 			this.setState({
             	[e.target.name]: boolVal
         	})
