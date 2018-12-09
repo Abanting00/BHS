@@ -27,7 +27,6 @@ const UserSchema = new Schema({
 	image: {
 		type: String,
 		data: Buffer,
-		required: true,
 		default: ''
 	},
 	role: {

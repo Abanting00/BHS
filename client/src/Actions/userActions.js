@@ -1,24 +1,27 @@
 import { USER_TYPES } from './types';
 
 export const loginUser = (loginData) => dispatch => {
-	const reqOptions = {
-		method: 'POST',
-		headers: { 'Content-Type': 'application/json' },
-		body: JSON.stringify(loginData)
-	}
+	return new Promise((resolve, reject) => {
+		const reqOptions = {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify(loginData)
+		}
 
-	fetch('http://localhost:8000/api/login', reqOptions)
-		.then(res => res.json())
-		.then(user => {
-			if(user.data && user.data.token){
-				localStorage.setItem('user', JSON.stringify(user.data));
-			}
-
-			dispatch({
-				type: USER_TYPES.LOGIN_USER,
-				payload: user.success
-			});
-		})
+		fetch('http://localhost:8000/api/login', reqOptions)
+			.then(res => res.json())
+			.then(user => {
+				if(user.data && user.data.token){
+					localStorage.setItem('user', JSON.stringify(user.data));
+				}
+				dispatch({
+					type: USER_TYPES.LOGIN_USER,
+					payload: user.success
+				});
+				resolve();
+			})
+	})
+	
 };
 
 export const registerUser = (userData) => dispatch => {
@@ -39,5 +42,22 @@ export const registerUser = (userData) => dispatch => {
 		})
 };
 
+export const fetchUser =  (username) => dispatch => {
+	return new Promise((resolve, reject) => {
+		const reqOptions = {
+		method: 'GET'
+	}
+
+	fetch(`http://localhost:8000/api/user/${username}`, reqOptions)
+		.then(res => res.json())
+		.then(user => {
+			dispatch({
+				type: USER_TYPES.FETCH_USER,
+				payload: user.success
+			});
+			resolve();
+		})
+	})
+};
 // export const fetchUsers = () => dispatch => {
 // }

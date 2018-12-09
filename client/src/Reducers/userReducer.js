@@ -3,7 +3,8 @@ import { USER_TYPES } from '../Actions/types';
 const intialState = {
 	users: [],
 	user: {},
-	status: false
+	status: false,
+	exists: false
 }
 
 export default (state = intialState, action) => {
@@ -17,6 +18,11 @@ export default (state = intialState, action) => {
 			return {
 				...state,
 				status: action.payload
+			};
+		case USER_TYPES.FETCH_USER:
+			return {
+				...state,
+				exists: action.payload
 			};
 		default:
 			return state;
