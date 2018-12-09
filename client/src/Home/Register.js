@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { Col, Row, Button, Form, FormGroup, Label, Input } from 'reactstrap';
+import { Alert, Col, Row, Button, Form, FormGroup, Label, Input } from 'reactstrap';
 // import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { registerUser } from '../Actions/userActions';
+import { registerUser, fetchUser } from '../Actions/userActions';
 import './Register.css';
 
 class Register extends Component {
@@ -15,7 +15,7 @@ class Register extends Component {
 			email: '',
 			username: '',
 			password: '',
-			redirect: false
+			failed: undefined 
 		}
 
 		this.onChange = this.onChange.bind(this);
@@ -40,14 +40,28 @@ class Register extends Component {
 			password: this.state.password
 		}
 
-		this.props.registerUser(user);
+		this.props.fetchUser(this.state.username)
+			.then(res => {
+				this.setState({failed: this.props.exists})
+				if(!this.state.failed){
+					this.props.registerUser(user);
+				}
+			});
+	}
+
+	componentWillReceieveProps(nextProps) {
+		this.setState({
+			failed: nextProps.exists
+		})
 	}
 
 	render() {
-		return (
+		let screen;
+		screen =
 			<div className="register-bg">
 				<Row>
 					<Col sm="12" md={{ size: 4, offset: 4 }}>
+						{this.state.failed && <Alert color="danger" style = {{marginTop: "20px"}}>This username is already taken!</Alert>}
 						<Form className="register" onSubmit={this.onSubmit}>
 							<h1 className="text-center">Register</h1>
 							<br />
@@ -84,13 +98,18 @@ class Register extends Component {
 					</Col>
 				</Row>
 			</div>
+	return (
+		<div>
+			{screen}
+		</div>
 		);
 	}
 }
 
 const mapStateToProps = state => ({
-	status: state.users.status
+	status: state.users.status,
+	exists: state.users.exists
 })
 
-export default connect(mapStateToProps, { registerUser })(Register);
+export default connect(mapStateToProps, { registerUser, fetchUser })(Register);
 

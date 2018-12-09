@@ -35,13 +35,11 @@ class Login extends Component {
             password: this.state.password
         }
 
-        this.props.loginUser(user);
-        
-        if(!this.props.status){
-            this.setState({
-                failed: true
-            })
-        }
+        this.props.loginUser(user)
+            .then(res => {
+               if(!this.props.status)
+                    this.setState({ failed: true }) 
+            })    
     }
 
     componentWillReceiveProps(nextProps) {
