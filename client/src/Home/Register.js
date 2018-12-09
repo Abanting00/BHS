@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Alert, Col, Row, Button, Form, FormGroup, Label, Input } from 'reactstrap';
-// import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { registerUser, fetchUser } from '../Actions/userActions';
 import './Register.css';
@@ -69,27 +68,27 @@ class Register extends Component {
 								<Col md={6}>
 									<FormGroup>
 										<Label>First Name</Label>
-										<Input type="firstname" name="firstname" onChange={this.onChange}/>
+										<Input type="firstname" name="firstname" onChange={this.onChange} required/>
 									</FormGroup>
 								</Col>
 								<Col md={6}>
 									<FormGroup>
 										<Label>Last Name</Label>
-										<Input type="lastname" name="lastname" onChange={this.onChange}/>
+										<Input type="lastname" name="lastname" onChange={this.onChange} required/>
 									</FormGroup>
 								</Col>
 							</Row>
 							<FormGroup>
 								<Label>Email</Label>
-								<Input type="email" name="email" onChange={this.onChange}/>
+								<Input type="email" name="email" onChange={this.onChange} required/>
 							</FormGroup>
 							<FormGroup>
 								<Label>Username</Label>
-								<Input type="username" name="username" onChange={this.onChange}/>
+								<Input type="username" name="username" onChange={this.onChange} required/>
 							</FormGroup>
 							<FormGroup>
 								<Label>Password</Label>
-								<Input type="password" name="password" onChange={this.onChange}/>
+								<Input type="password" name="password" onChange={this.onChange} required/>
 							</FormGroup>
 							<br />
 							<Button className="submitbutton" type="submit" color="primary"><span className="btn-span">Register</span></Button>

@@ -3,15 +3,19 @@ import { Navbar, NavbarBrand, Nav, NavItem, NavLink } from 'reactstrap';
 import { Logout } from "../Helper/authHeader";
 import { withRouter } from 'react-router-dom';
 
-function Login(){
-	return <NavLink href="/">Login</NavLink> 
-}
+const Login = () => {
+	return (
+		<NavLink href="/">Login</NavLink>
+	) 
+};
 
-function Register() {
-	return <NavLink href="/register">Sign Up</NavLink>
-}
+const Register = () => {
+	return (
+		<NavLink href="/register">Sign Up</NavLink>
+	)
+};
 
-function HomeNav(path) {
+const HomeNav = (path) => {
 	return (
 		<Nav className="ml-auto" navbar>
 			<NavItem>
@@ -23,9 +27,9 @@ function HomeNav(path) {
 			</NavItem>
 		</Nav>
 		)
-}
+};
 
-function DashboardNav() {
+const DashboardNav = () => {
 	return (
 		<Nav className="ml-auto" navbar>
 			<NavItem>
@@ -38,14 +42,16 @@ function DashboardNav() {
 	);
 };
 
-function NavSwitch(path) {
+const NavSwitch = (path) => {
 	let currPath = path.path
 	console.log(currPath);
 	if((currPath === '/register') || (currPath === '/')){
 		return <HomeNav path = {currPath}/>;
 	}
-	return <DashboardNav />;
-}
+	return (
+		<DashboardNav />
+	)
+};
 
 // Two problems:
 // 1. Logout() being triggered when you refresh or click on BHS

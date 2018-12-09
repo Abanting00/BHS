@@ -10,7 +10,6 @@ class App extends Component {
     return (
     	<Provider store={store}>
   			<div className="App">
-  			 <Navs />
   	     <Routes />
         </div>
 	    </Provider>
