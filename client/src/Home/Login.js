@@ -62,15 +62,15 @@ class Login extends Component {
 
                                 <FormGroup>
                                     <Label>Username</Label>
-                                    <Input type="username" name="username" onChange={this.onChange} />
+                                    <Input type="username" name="username" onChange={this.onChange} required/>
                                  </FormGroup>
 
                                 <FormGroup>
                                     <Label>Password</Label>
-                                    <Input type="password" name="password" onChange={this.onChange} />
+                                    <Input type="password" name="password" onChange={this.onChange} required/>
                                 </FormGroup>
-
-                                <Button type="submit" outline color="primary" size="lg">Login</Button>
+                                <br />
+                                <Button type="submit" outline color="primary" size="md" style={{float: "right"}}>Login</Button>
                             </Form>
                         </div>
         }

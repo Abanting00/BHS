@@ -49,7 +49,6 @@ class CardList extends Component {
 
 		}
 
-		console.warn(docs);
 		return (
 			<CardColumns style={{paddingRight: '20px'}}> 
                <DocCards data={docs} />
@@ -59,7 +58,6 @@ class CardList extends Component {
 }
 
 const DocCards = (docs) => {
-	console.log(docs)
 	const docCards = docs.data.map(doc => 
 	            <DashboardCard 
 	            	key={doc._id}
@@ -69,6 +67,7 @@ const DocCards = (docs) => {
 					title={doc.title} 
 					description={doc.description} 
 					modified={doc.modified}
+					option={"RO"}
 				/> 
 			)
 	return docCards;

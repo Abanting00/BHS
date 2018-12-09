@@ -35,7 +35,12 @@ class DashboardCard extends Component {
 	render() {
 		let screen;
 		if (this.state.edit){
-			screen = <Redirect to={{pathname: '/document', state: { id:this.props.id }}}/>
+			screen = <Redirect 
+						to={{
+							pathname: '/document', 
+							state: { 
+								id:this.props.id 
+							}}}/>
 		}
 
 		return (

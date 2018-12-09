@@ -1,6 +1,7 @@
 .bg {
-	 background: linear-gradient(to bottom left, #3333cc 4%, #6699ff 77%);
-	height: 700px;
+ 	background: linear-gradient(to bottom left, #3333cc 4%, #6699ff 77%);
+	height: 92vh;
+	font-weight: bold;
 }
 
 .signup-col {
@@ -12,10 +13,6 @@
 	-webkit-box-shadow:0px 2px 2px grey;
  	-moz-box-shadow:0px 2px 2px grey;
  	box-shadow:0px 3px 3px grey;
-}
-
-div {
-	font-weight: bold;
 }
 
 .slogan {

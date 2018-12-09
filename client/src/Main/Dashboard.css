@@ -45,3 +45,16 @@
 .dashboard-links {
 	padding-top: 30px;
 }
+
+
+.center-icons {
+	margin: 50px auto;
+  	width: 50%;
+}
+
+.icons {
+	color: white;
+	size: 36px;
+	cursor: pointer;
+	padding: 20px;
+}
