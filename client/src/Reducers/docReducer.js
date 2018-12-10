@@ -29,6 +29,11 @@ export default function(state = intialState, action) {
 				...state,
 				saved: action.payload
 			}
+		case DOC_TYPES.CHANGE_STATUS:
+			return {
+				...state,
+				status: action.payload
+			}
 		default: 
 			return state;
 	}

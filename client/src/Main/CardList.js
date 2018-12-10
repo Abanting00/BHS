@@ -13,6 +13,7 @@ class CardList extends Component {
 	}
 
 	recentDocs() {
+		const userID = getUserID();
 		let sortedDocs = this.props.docs.sort((doc1, doc2) => {
 			const timeA = new Date(doc1.modified).getTime();
 			const timeB = new Date(doc2.modified).getTime();
@@ -20,11 +21,22 @@ class CardList extends Component {
 		});
 
 		sortedDocs = sortedDocs.filter(doc => {
-			// Need to add a case of Shared and check if user is an invited user
+			if(doc.permission === 'Shared' && doc.members.includes(userID)){
+				return true;
+			}
 			return getUserRole() === 'SU' || !(doc.permission === 'Private' && getUserID() !== doc.owner);
 		});
 
 		return sortedDocs;
+	}
+
+	sharedDocs() {
+		const userID = getUserID();
+		let sharedDocs = this.props.docs.filter(doc => {
+			return doc.members.includes(userID) && doc.permission !== 'Private';
+		});
+
+		return sharedDocs;
 	}
 
 	ownedDocs() {
@@ -48,7 +60,7 @@ class CardList extends Component {
 				docs = search(searchField,this.ownedDocs(), "title")
 				break
 			case 'Shared':
-				docs = this.props.docs
+				docs = search(searchField,this.sharedDocs(), "title")
 				break
 			default:
 				docs = this.props.docs
@@ -78,6 +90,7 @@ const DocCards = (docs) => {
 					title={doc.title} 
 					description={doc.description} 
 					modified={doc.modified}
+					owner={doc.owner}
 					view={view}
 				/> 
 	})

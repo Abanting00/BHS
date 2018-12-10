@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import { Card, CardTitle, CardText } from 'reactstrap';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import { connect } from 'react-redux';
+import { changeStatus } from '../Actions/docActions';
 import { Redirect } from 'react-router';
+import { getUserID, getUserRole } from '../Helper/authHeader';
 
 
 class DashboardCard extends Component {
@@ -11,11 +14,31 @@ class DashboardCard extends Component {
 
 		this.state = {
 			modal: false,
-			edit: false
+	      	nestedModal: false,
+			edit: false,
+			owner: getUserID() === this.props.owner || getUserRole() === 'SU',
+			locked: this.props.locked
 		}
 
 		this.toggle = this.toggle.bind(this);
     	this.toggleEdit = this.toggleEdit.bind(this);
+	    this.toggleNested = this.toggleNested.bind(this);
+	    this.changeLock = this.changeLock.bind(this);
+	}
+
+	toggleNested(e) {
+		e.preventDefault();
+		this.setState({
+			nestedModal: !this.state.nestedModal
+		})
+	}
+
+	changeLock() {
+		this.setState({
+			locked: !this.state.locked
+		})
+
+		this.props.changeStatus(this.props.id);
 	}
 
 	toggle(e) {
@@ -58,15 +81,30 @@ class DashboardCard extends Component {
 	          	<Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
 					<ModalHeader toggle={this.toggle}>{this.props.title}</ModalHeader>
 					<ModalBody>
+                        {this.state.owner ? 
+                        	<i className="material-icons" style={{float: "right"}} onClick={this.toggleNested}>settings</i> : <div></div>}
+                        <br />
+
+                        <Modal isOpen={this.state.nestedModal} toggle={this.toggleNested}  className={this.props.className}>
+                        	<ModalHeader toggle={this.toggleNested}>Change Document Settings</ModalHeader>
+                        	<ModalBody>
+                        		<p className="text-center" style={{fontSize: '18px'}}>
+                        			Lock: <Button size="sm"color="danger" style={{marginLeft: '20px'}} onClick={this.changeLock}>{this.state.locked ? "Unlock Doc": "Lock Doc"}</Button>
+                        		</p>
+                        	</ModalBody>
+                        </Modal>
+
+
+
 						<p className="text-center">
 						 {this.props.permission} Document
 						</p>
 						<p className="text-center">
-						  Status: {!this.props.locked ? <span style={{color: 'green'}}>open</span> : <span style={{color: 'red'}}>closed</span>}
+						  Status: {!this.state.locked ? <span style={{color: 'green'}}>Unlocked</span> : <span style={{color: 'red'}}>Locked</span>}
 						</p>
 					</ModalBody>
 					<ModalFooter>
-						{!this.props.locked ? <Button color="primary" onClick={this.toggleEdit}>Edit Doc</Button> : <Button color="primary" disabled onClick={this.toggleEdit}>Edit Doc</Button>}
+						{!this.state.locked ? <Button color="primary" onClick={this.toggleEdit}>Edit Doc</Button> : <Button color="primary" disabled onClick={this.toggleEdit}>Edit Doc</Button>}
 					</ModalFooter>
 				</Modal> 
 				{screen}
@@ -75,4 +113,8 @@ class DashboardCard extends Component {
 	}
 }
 
-export default DashboardCard;
+const mapStateToProps = state => ({
+	status: state.docs.status
+});
+
+export default connect(mapStateToProps, { changeStatus })(DashboardCard);

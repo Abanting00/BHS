@@ -69,3 +69,20 @@ export const saveDoc = (doc) => dispatch => {
 			});
 		})
 };
+
+export const changeStatus = (docid) => dispatch => {
+	const header = authHeader();
+	const reqOptions = {
+		method: 'PUT',
+		headers: header
+	}
+
+	fetch(`http://localhost:8000/api/docs/changestatus/${docid}`, reqOptions)
+		.then(res => res.json())
+		.then(doc => {
+			dispatch({
+				type: DOC_TYPES.CHANGE_STATUS,
+				payload: doc
+			});
+		})
+}
