@@ -1,12 +1,12 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
-import { fetchDoc, saveDoc } from '../Actions/docActions';
+import { fetchDoc } from '../Actions/docActions';
 import { fetchTabooList } from '../Actions/tabooActions';
 import { getUserID } from '../Helper/authHeader';
 import './Document.css';
 import DocNav from './docNav';
 
-class document extends Component {
+class Document extends Component {
     constructor(props) {
     super(props);
 
@@ -17,7 +17,7 @@ class document extends Component {
     }
 
     this.onChange = this.onChange.bind(this);
-    this.onSubmit = this.onSubmit.bind(this);
+    this.edit = this.edit.bind(this);
   }
 
   componentWillMount() {
@@ -37,12 +37,11 @@ class document extends Component {
     })
   }
 
-  onSubmit() {
+  edit() {
     const x = this.props.words
     let tabooWords = []
     x.map(x => tabooWords.push(x.word));
-    let currentBody = this.state.body;
-    let editedBody = currentBody;
+    let editedBody = this.state.body;
 
     for(let i = 0; i < tabooWords.length; i++){
       let edit = new RegExp('\\b('+tabooWords[i]+')\\b',"gi"); 
@@ -52,14 +51,6 @@ class document extends Component {
     this.setState({
       body: editedBody
     })
-
-    const docData = {
-      id: this.state.id,
-      body: editedBody,
-      modified_by: getUserID()
-    }
-
-    this.props.saveDoc(docData);
   }
 
   render() {
@@ -73,9 +64,8 @@ class document extends Component {
 
     return (
       <div>
-        <DocNav />
+        <DocNav body={this.state.body} id={this.state.id} edit={this.edit}/>
         <div className="doc-bg">
-            <button onClick={this.onSubmit}>Save</button> 
               <form>
                 <div>
                   {textarea}
@@ -94,4 +84,4 @@ const mapStateToProps = state => ({
 })
 
 
-export default connect(mapStateToProps, { fetchDoc, saveDoc, fetchTabooList })(document);
+export default connect(mapStateToProps, { fetchDoc, fetchTabooList })(Document);
