@@ -31,8 +31,8 @@ class Members extends Component {
 	}
 
 	render() {
-		let users = this.props.users
-		// let users = this.props.users.filter(user => {return user.role != 'GU'});
+		// Should not be access by GU
+		let users = this.props.users.filter(user => {return user.role != 'GU'});
 		return (
 			<Modal 
 				size="lg" 
