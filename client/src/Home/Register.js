@@ -14,7 +14,8 @@ class Register extends Component {
 			email: '',
 			username: '',
 			password: '',
-			failed: undefined 
+			failed: undefined,
+			registered: undefined 
 		}
 
 		this.onChange = this.onChange.bind(this);
@@ -43,14 +44,19 @@ class Register extends Component {
 			.then(res => {
 				this.setState({failed: this.props.exists})
 				if(!this.state.failed){
-					this.props.registerUser(user);
+					this.props.registerUser(user)
+						.then(res => {
+							this.setState({registered: this.props.status})
+							console.log(this.state.registered)
+						})
 				}
 			});
 	}
 
 	componentWillReceieveProps(nextProps) {
 		this.setState({
-			failed: nextProps.exists
+			failed: nextProps.exists,
+			registered: nextProps.status
 		})
 	}
 
@@ -60,7 +66,8 @@ class Register extends Component {
 			<div className="register-bg">
 				<Row>
 					<Col sm="12" md={{ size: 4, offset: 4 }}>
-						{this.state.failed && <Alert color="danger" style = {{marginTop: "20px"}}>This username is already taken!</Alert>}
+						{this.state.registered && <Alert className="animated fadeOut delay-2s" color="success" style = {{marginTop:"20px"}}>Registration Successful!</Alert>}
+						{this.state.failed && <Alert className="animated fadeOut delay-2s" color="danger" style = {{marginTop:"20px"}}>This username is already taken!</Alert>}
 						<Form className="register" onSubmit={this.onSubmit}>
 							<h1 className="text-center">Register</h1>
 							<br />
