@@ -53,9 +53,6 @@ const NavSwitch = (path) => {
 	)
 };
 
-// Two problems:
-// 1. Logout() being triggered when you refresh or click on BHS
-// 2. For some reason when you log in, path changes to "dashboard", but then changes to "/" immediately after
 
 class Navs extends Component {
 	render() {

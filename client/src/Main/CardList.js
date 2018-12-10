@@ -30,15 +30,21 @@ class CardList extends Component {
 		return ownedDocs;
 	}
 
+	search(searchField, docs) {
+	 	let results = docs.filter(doc => doc.title.toLowerCase().includes(searchField));
+	 	return results;
+	}
+	
 	render() {
+		const searchField = this.props.search.toLowerCase();
 		let docs;
 
 		switch(this.props.option){
 			case 'Recent':
-				docs = this.recentDocs()
+				docs = this.search(searchField,this.recentDocs())
 				break
 			case 'Owned':
-				docs = this.ownedDocs()
+				docs = this.search(searchField,this.ownedDocs())
 				break
 			case 'Shared':
 				docs = this.props.docs
