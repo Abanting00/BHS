@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
+import { Alert, Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import { connect } from 'react-redux';
 import { newDoc } from '../Actions/docActions';
-import { getUserID } from '../Helper/authHeader';
+import { getUserID, getUserRole } from '../Helper/authHeader';
 import { Redirect } from 'react-router';
 
 
@@ -57,44 +57,46 @@ class CreateDoc extends Component {
   }
 
 	render() {
-		console.log(this.state.locked)
-
 		let screen;
 		if (this.state.redirect){
 			screen = <Redirect to={{pathname: '/document', state: {id: this.props.doc.data._id }}}/>
 		}
 
-		return (
-			<Form onSubmit={this.onSubmit}>
-				{screen}
-        		<FormGroup>
-		          	<Label>Title</Label>
-		          	<Input name="title" onChange={this.onChange} required/>
-		        </FormGroup>
-		        <FormGroup>
-		          	<Label>Description</Label>
-		          	<Input type="textarea" name="description" onChange={this.onChange} required/>
-		        </FormGroup>
-		        <FormGroup>
-		          	<Label>Permission Type</Label>
-		          	<Input type="select" name="permission" onChange={this.onChange}>
-		           		<option>Public</option>
-		            	<option>Restricted</option>
-		            	<option>Shared</option>
-		            	<option>Private</option>
-		          	</Input>
-		        </FormGroup>
-		        <FormGroup>
-		          	<Label>Lock</Label>
-		          	<Input type="select" name="locked" onChange={this.onChange}>
-		           		<option>No</option>
-		            	<option>Yes</option>
-		          	</Input>
-		        </FormGroup>
-		        <hr />
-				<Button type="submit" color="primary" style={{float: "right"}}>Create Doc</Button>
-      		</Form>
-		);
+		if (getUserRole() === 'GU'){
+			return (<Alert color="warning">Guest User's Are not Allowed to Create Document!</Alert>)
+		}else{
+			return (
+				<Form onSubmit={this.onSubmit}>
+					{screen}
+	        		<FormGroup>
+			          	<Label>Title</Label>
+			          	<Input name="title" onChange={this.onChange} required/>
+			        </FormGroup>
+			        <FormGroup>
+			          	<Label>Description</Label>
+			          	<Input type="textarea" name="description" onChange={this.onChange} required/>
+			        </FormGroup>
+			        <FormGroup>
+			          	<Label>Permission Type</Label>
+			          	<Input type="select" name="permission" onChange={this.onChange}>
+			           		<option>Public</option>
+			            	<option>Restricted</option>
+			            	<option>Shared</option>
+			            	<option>Private</option>
+			          	</Input>
+			        </FormGroup>
+			        <FormGroup>
+			          	<Label>Lock</Label>
+			          	<Input type="select" name="locked" onChange={this.onChange}>
+			           		<option>No</option>
+			            	<option>Yes</option>
+			          	</Input>
+			        </FormGroup>
+			        <hr />
+					<Button type="submit" color="primary" style={{float: "right"}}>Create Doc</Button>
+	      		</Form>
+			);
+		}
 	}
 }
 

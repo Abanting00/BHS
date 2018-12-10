@@ -42,6 +42,8 @@ const DocSchema = new Schema ({
 		required: true
 	},
 
+	members: [{ type : Schema.Types.ObjectId, ref: 'UserModel' }],
+
 	views: {
 		type: Number, 
 		default: 0,

@@ -12,7 +12,8 @@ class document extends Component {
 
     this.state = {
       body: this.props.body,
-      id: this.props.location.state.id 
+      id: this.props.location.state.id,
+      view: this.props.location.state.view  
     }
 
     this.onChange = this.onChange.bind(this);
@@ -62,6 +63,14 @@ class document extends Component {
   }
 
   render() {
+    let textarea;
+
+    if(this.state.view === 'R'){
+      textarea = <textarea className="body" value={this.state.body} onChange={this.onChange} readOnly></textarea>
+    }else{
+      textarea = <textarea className="body" value={this.state.body} onChange={this.onChange}></textarea>
+    }
+
     return (
       <div>
         <DocNav />
@@ -69,7 +78,7 @@ class document extends Component {
             <button onClick={this.onSubmit}>Save</button> 
               <form>
                 <div>
-                  <textarea className="body" value={this.state.body} onChange={this.onChange}></textarea>
+                  {textarea}
                 </div>
               </form>
         </div>

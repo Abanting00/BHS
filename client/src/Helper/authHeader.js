@@ -18,3 +18,8 @@ export const getUserID = () => {
 	let user = JSON.parse(localStorage.getItem('user'));
 	return user.user._id;
 }
+
+export const getUserRole = () => {
+	let user = JSON.parse(localStorage.getItem('user'));
+	return user.user.role;
+}
