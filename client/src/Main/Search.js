@@ -12,12 +12,17 @@ class Search extends Component {
 		}
 
 		this.onChange = this.onChange.bind(this);
+		this.onSubmit = this.onSubmit.bind(this);
 	}
 
 	onChange(e) {
 		this.setState({
 			searchField: e.target.value
 		})
+	}
+
+	onSubmit(e) {
+		e.preventDefault();
 	}
 
 	render() {
@@ -27,7 +32,7 @@ class Search extends Component {
 			search = <div></div>
 		}else{
 			search = 
-					<Form className="search animated bounceInLeft">
+					<Form onSubmit={this.onSubmit} className="search animated bounceInLeft">
 						<FormGroup row>
 							<Col sm={12}>
 								<Input 
