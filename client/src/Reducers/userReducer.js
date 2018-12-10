@@ -24,6 +24,11 @@ export default (state = intialState, action) => {
 				...state,
 				exists: action.payload
 			};
+		case USER_TYPES.FETCH_USERS:
+			return {
+				...state,
+				users: action.payload.data
+			}
 		default:
 			return state;
 	}

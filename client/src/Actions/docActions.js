@@ -16,8 +16,8 @@ export const fetchDocs = () => dispatch => {
 				payload: docs
 			});
 		})
+};
 
-}
 export const fetchDoc = (docid) => dispatch => {
 	const header = authHeader();
 	const reqOptions = {

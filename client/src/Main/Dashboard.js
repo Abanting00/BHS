@@ -5,7 +5,7 @@ import './Dashboard.css';
 import avatar from './head.jpg';
 import CreateDoc from './CreateDoc';
 import Search from './Search';
-
+import Members from './Members';
 
 
 class dashboard extends Component {
@@ -14,12 +14,20 @@ class dashboard extends Component {
       this.state = {
         modal: false,
         option: 'Recent',
-        search: false
+        search: false,
+        members: false
       };
 
       this.toggle = this.toggle.bind(this);
       this.toggleSearch = this.toggleSearch.bind(this);
+      this.toggleMembers = this.toggleMembers.bind(this);
       this.onClickMode = this.onClickMode.bind(this);
+  }
+
+  toggleMembers() {
+    this.setState({
+      members: !this.state.members
+    });
   }
 
   toggleSearch() {
@@ -66,7 +74,7 @@ class dashboard extends Component {
 
                           <div className="center-icons">
                             <i className="material-icons icons" onClick={this.toggleSearch}>search</i>
-                            <i className="material-icons icons">people</i>
+                            <i className="material-icons icons" onClick={this.toggleMembers}>people</i>
                             <i className="material-icons icons">settings</i>
                           </div>
                       </div>
@@ -78,6 +86,8 @@ class dashboard extends Component {
                   </Row>
                 </Container>
               </div>
+
+              <Members members={this.state.members} toggle={this.toggleMembers} />
 
               <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
                 <ModalHeader toggle={this.toggle}>Create Document</ModalHeader>

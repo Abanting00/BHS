@@ -1,4 +1,5 @@
 import { USER_TYPES } from './types';
+import { authHeader } from '../Helper/authHeader';
 
 export const loginUser = (loginData) => dispatch => {
 	return new Promise((resolve, reject) => {
@@ -59,5 +60,20 @@ export const fetchUser =  (username) => dispatch => {
 		})
 	})
 };
-// export const fetchUsers = () => dispatch => {
-// }
+
+export const fetchUsers = () => dispatch => {
+	const header = authHeader();
+	const reqOptions = {
+		method: 'GET',
+		headers: header
+	}
+
+	fetch("http://localhost:8000/api/users/", reqOptions)
+		.then(res => res.json())
+		.then(users => {
+			dispatch({
+				type: USER_TYPES.FETCH_USERS,
+				payload: users
+			});
+		})
+}

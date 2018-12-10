@@ -20,7 +20,7 @@ class CardList extends Component {
 
 		sortedDocs = sortedDocs.filter(doc => {
 			// Need to add a case of Shared and check if user is an invited user
-			return getUserRole() === 'SU' || !(doc.permission === 'Private' && getUserID() != doc.owner);
+			return getUserRole() === 'SU' || !(doc.permission === 'Private' && getUserID() !== doc.owner);
 		});
 
 		return sortedDocs;
@@ -29,7 +29,7 @@ class CardList extends Component {
 	ownedDocs() {
 		const userID = getUserID();
 		const ownedDocs = this.props.docs.filter(doc => {
-			return getUserRole() === 'SU' || userID === doc.owner;
+			return userID === doc.owner;
 		})
 
 		return ownedDocs;
@@ -72,10 +72,9 @@ class CardList extends Component {
 }
 
 const DocCards = (docs) => {
-
 	const docCards = docs.data.map(doc => {
 		let view = 'E'
-		if(getUserRole() === 'GU' && doc.permission != 'Public')
+		if(getUserRole() === 'GU')
 			view = 'R'
 
 		return <DashboardCard 
