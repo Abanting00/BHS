@@ -9,7 +9,7 @@ const fs = require("fs");
 exports.user_list = (req, res) => {
 	User.find((err, users) => {
 		if(err)
-			return res.json({success: false, error: err});
+			return res.json({success: false, error: err, data: []});
 		return res.json({success: true, data: users});	
 	});
 };
