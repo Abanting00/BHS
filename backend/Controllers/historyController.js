@@ -2,21 +2,38 @@ const History = require('../Models/HistoryModel');
 
 // new version
 exports.new_version = (req,res) => {
-	const{version, doc_id, body, modified_by} = req.body;
+	const doc = res.locals.doc;
+
 	const newversion = new History({
-		version: version,
-		doc_id: doc_id,
-		body: body,
-		modified_by: modified_by,
-		date_modified: Date.now
+		version: doc.version - 1,
+		doc_id: doc._id,
+		body: doc.body,
+		modified_by: doc.modified_by,
+		date_modified: Date.now()
 	});
 
 	newversion.save(err => {
 		if(err)
-			return ress.json({success: false, error: err});
+			return res.json({success: false, error: err});
 		return res.json({success:true});
 	}); 
 };
+
+exports.doc_history_list = (req,res) => {
+	History.find({doc_id: req.params.doc_id}, (err, histories) =>{
+		if(err)
+			return res.json({success:false, error:err});
+		return res.json({success:true, data: histories});
+	})
+}
+
+exports.history_list = (req,res) => {
+	History.find((err,histories) => {
+		if(err)
+			return res.json({success:false, error:err});
+		return res.json({success:true, data: histories});
+	});
+}
 
 // display version history for a single document
 exports.version_history = (req,res) => {

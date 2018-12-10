@@ -74,10 +74,18 @@ exports.change_status = (req,res) => {
 };
 
 //Change the body
-exports.change_body = (req,res) => {
+exports.change_body = (req,res,next) => {
 	Doc.findById(req.params.id,(err,docs) => {
 		if(err)
 			return res.json({success:false, error:err});
+		
+		const oldDoc = {
+			body: docs.body,
+			_id: docs._id,
+			version: docs.version,
+			modified_by: req.body.modified_by
+		}
+
 		docs.version++;
 		docs.body = req.body.body; 
 		docs.modified = Date.now();
@@ -85,7 +93,8 @@ exports.change_body = (req,res) => {
 		docs.save(err => {
 			if(err)
 				return res.json({success:false, error:err});
-			return res.json({success:true});
+			res.locals.doc = oldDoc
+			next();
 		});
 	});
 };

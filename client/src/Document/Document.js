@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import { fetchDoc, saveDoc } from '../Actions/docActions';
 import { fetchTabooList } from '../Actions/tabooActions';
+import { getUserID } from '../Helper/authHeader';
 import './Document.css';
 
 class document extends Component {
@@ -52,8 +53,10 @@ class document extends Component {
 
     const docData = {
       id: this.state.id,
-      body: editedBody
+      body: editedBody,
+      modified_by: getUserID()
     }
+
     this.props.saveDoc(docData);
   }
 

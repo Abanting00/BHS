@@ -66,7 +66,7 @@ class dashboard extends Component {
 
                           <div className="center-icons">
                             <i className="material-icons icons" onClick={this.toggleSearch}>search</i>
-                            <i className="material-icons icons">person</i>
+                            <i className="material-icons icons">people</i>
                             <i className="material-icons icons">settings</i>
                           </div>
                       </div>
