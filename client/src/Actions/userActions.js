@@ -25,7 +25,8 @@ export const loginUser = (loginData) => dispatch => {
 };
 
 export const registerUser = (userData) => dispatch => {
-	const reqOptions = {
+	return new Promise((resolve,reject) => {
+		const reqOptions = {
 		method: 'POST',
 		headers: {'Content-Type': 'application/json'}, //sending a JSON file in the body 
 		body: JSON.stringify(userData)
@@ -39,7 +40,9 @@ export const registerUser = (userData) => dispatch => {
 				type: USER_TYPES.REGISTER_USER,
 				payload: user.success
 			});
+			resolve();
 		})
+	})
 };
 
 export const fetchUser =  (username) => dispatch => {

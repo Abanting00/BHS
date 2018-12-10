@@ -32,13 +32,13 @@ class DocNav extends Component {
 					<NavbarBrand href="/" style={{fontSize:"20pt",fontWeight:"bold"}}>B.H.S</NavbarBrand>
 					<Nav className= "ml-auto" navbar>
 						<NavItem>
-							<i className = "material-icons docicons" >people</i>
+							<i className="material-icons docicons" >people</i>
 						</NavItem>
 						<NavItem>
-							<i className = "material-icons docicons">history</i>
+							<i className="material-icons docicons">history</i>
 						</NavItem>
 						<NavItem>
-							<Button onClick={this.onSubmit} color = "info" style = {{marginTop:"5px"}}>Save</Button>
+							<Button onClick={this.onSubmit} color="info" style={{marginTop:"5px"}}>Save</Button>
 						</NavItem>
 					</Nav>
 				</Navbar>
