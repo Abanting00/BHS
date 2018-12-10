@@ -3,6 +3,7 @@ import { Modal, ModalHeader, ModalBody } from 'reactstrap';
 import { CardColumns, Card, CardTitle, CardText, Col, Form, FormGroup, Input } from 'reactstrap';
 import { connect } from 'react-redux';
 import { fetchUsers } from '../Actions/userActions';
+import { search } from '../Helper/searchHelper';
 
 class Members extends Component {
 	constructor(props) {
@@ -32,6 +33,7 @@ class Members extends Component {
 
 	render() {
 		// Should not be access by GU
+		
 		let users = this.props.users.filter(user => {return user.role != 'GU'});
 		return (
 			<Modal 
