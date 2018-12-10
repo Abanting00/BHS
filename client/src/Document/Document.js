@@ -4,6 +4,7 @@ import { fetchDoc, saveDoc } from '../Actions/docActions';
 import { fetchTabooList } from '../Actions/tabooActions';
 import { getUserID } from '../Helper/authHeader';
 import './Document.css';
+import DocNav from './docNav';
 
 class document extends Component {
     constructor(props) {
@@ -62,13 +63,16 @@ class document extends Component {
 
   render() {
     return (
-      <div className="doc-bg">
-          <button onClick={this.onSubmit}>Save</button> 
-            <form>
-              <div>
-                <textarea className="body" value={this.state.body} onChange={this.onChange}></textarea>
-              </div>
-            </form>
+      <div>
+        <DocNav />
+        <div className="doc-bg">
+            <button onClick={this.onSubmit}>Save</button> 
+              <form>
+                <div>
+                  <textarea className="body" value={this.state.body} onChange={this.onChange}></textarea>
+                </div>
+              </form>
+        </div>
       </div>
     );
   }

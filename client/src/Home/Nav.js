@@ -44,27 +44,36 @@ const DashboardNav = () => {
 
 const NavSwitch = (path) => {
 	let currPath = path.path
-	console.log(currPath);
+	console.log("currpath", currPath)
 	if((currPath === '/register') || (currPath === '/')){
-		return <HomeNav path = {currPath}/>;
-	}
+		return (
+			<HomeNav path = {currPath}/>
+	)}
+	else if(currPath === '/dashboard'){
 	return (
 		<DashboardNav />
+	)}
+};
+
+const GeneralNav = (path) => {
+	return (
+		<div className = "navHome">
+			<Navbar light expand="md">
+				<NavbarBrand href="/">B.H.S</NavbarBrand>
+				<NavSwitch path = {path.path}/>
+			</Navbar>
+		</div>
 	)
 };
 
-
 class Navs extends Component {
 	render() {
-		return (
-			<div className = "navHome">
-				<Navbar light expand="md">
-					<NavbarBrand href="/">B.H.S</NavbarBrand>
-					<NavSwitch path = {this.props.location.pathname}/>
-				</Navbar>
-			</div>
-
-		);
+		let path = this.props.location.pathname
+		if(path === '/document'){
+			return (<div></div>)
+		}
+		else
+			return (<GeneralNav path = {path}/>)
 	};
 };
 
