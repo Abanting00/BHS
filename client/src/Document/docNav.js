@@ -29,7 +29,7 @@ class DocNav extends Component {
 		return (
 			<div className="navHome">
 				<Navbar light expand="md">
-					<NavbarBrand href="/">BHS</NavbarBrand>
+					<NavbarBrand href="/" style={{fontSize:"20pt",fontWeight:"bold"}}>B.H.S</NavbarBrand>
 					<Nav className= "ml-auto" navbar>
 						<NavItem>
 							<i className = "material-icons docicons" >people</i>
