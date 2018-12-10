@@ -1,4 +1,5 @@
 const Doc = require('../Models/DocsModel');
+const User = require('../Models/UsersModel');
 
 // Create a new Document
 exports.new_doc = (req,res) =>{
@@ -72,6 +73,40 @@ exports.change_status = (req,res) => {
 		});
  	});
 };
+
+// Get users in memberlist of doc
+exports.member_list = (req,res) => {
+	Doc.findById(req.params.id,(err,doc) => {
+		if(err)
+			return res.json({success:false, error:err})
+
+		User.find({'_id': {$in: doc.members}}, (err,users) => {
+			if(err)
+				return res.json({success:false, error:err});
+			return res.json({success:true, data:users});
+		});
+	});
+}
+
+// Add member in a document
+exports.add_member = (req,res) => {
+	Doc.findById(req.params.id,(err,doc) => {
+		if(err)
+			return res.json({success:false, error:err})
+		
+		User.findById(req.params.userid, (err, user) => {
+			if(err)
+			return res.json({success:false, error:err})
+
+			doc.members.push(user.id);
+			doc.save(err => {
+				if(err)
+					return res.json({success:false, error:err})
+				return res.json({success:true, message: "Successfully Added New Member."})
+			});
+		})
+	})	
+}
 
 //Change the body
 exports.change_body = (req,res,next) => {
