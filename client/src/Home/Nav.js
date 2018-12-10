@@ -59,7 +59,7 @@ const GeneralNav = (path) => {
 	return (
 		<div className = "navHome">
 			<Navbar light expand="md">
-				<NavbarBrand href="/">B.H.S</NavbarBrand>
+				<NavbarBrand href="/" style={{fontSize:"20pt",fontWeight:"bold"}}>B.H.S</NavbarBrand>
 				<NavSwitch path = {path.path}/>
 			</Navbar>
 		</div>
