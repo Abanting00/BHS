@@ -89,3 +89,20 @@ export const changeStatus = (docid) => dispatch => {
 			});
 		})
 }
+
+export const fetchMembers = (docid) => dispatch => {
+	const header = authHeader();
+	const reqOptions = {
+		method: 'GET',
+		headers: header
+	}
+
+	fetch(`http://localhost:8000/api/docs/members/${docid}`, reqOptions)
+		.then(res => res.json())
+		.then(members => {
+			dispatch({
+				type: DOC_TYPES.FETCH_MEMBERS,
+				payload: members
+			});
+		})
+}

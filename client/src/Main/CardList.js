@@ -8,7 +8,7 @@ import { getUserID, getUserRole } from '../Helper/authHeader';
 class CardList extends Component {
 
 	componentWillMount() {
-		this.props.fetchDocs();
+		this.props.fetchDocs();   
 	}
 
 	recentDocs() {
@@ -97,6 +97,7 @@ const DocCards = (docs) => {
 					description={doc.description} 
 					modified={doc.modified}
 					owner={doc.owner}
+					members={doc.members}
 					view={view}
 				/> 
 	})

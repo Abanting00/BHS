@@ -3,7 +3,8 @@ import { DOC_TYPES } from '../Actions/types';
 const intialState = {
 	items: [],
 	item: {},
-	body:""
+	body:"",
+	members: []
 }
 
 export default function(state = intialState, action) {
@@ -33,6 +34,11 @@ export default function(state = intialState, action) {
 			return {
 				...state,
 				status: action.payload
+			}
+		case DOC_TYPES.FETCH_MEMBERS:
+			return {
+				...state,
+				members: action.payload.data
 			}
 		default: 
 			return state;

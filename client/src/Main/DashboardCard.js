@@ -63,7 +63,8 @@ class DashboardCard extends Component {
 							pathname: '/document', 
 							state: { 
 								id: this.props.id,
-								view: this.props.view 
+								view: this.props.view,
+								members: this.props.members 
 							}}}/>
 		}
 

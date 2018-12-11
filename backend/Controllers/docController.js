@@ -78,11 +78,11 @@ exports.change_status = (req,res) => {
 exports.member_list = (req,res) => {
 	Doc.findById(req.params.id,(err,doc) => {
 		if(err)
-			return res.json({success:false, error:err})
+			return res.json({success:false, error:err, data:[]})
 
 		User.find({'_id': {$in: doc.members}}, (err,users) => {
 			if(err)
-				return res.json({success:false, error:err});
+				return res.json({success:false, error:err, data:[]});
 			return res.json({success:true, data:users});
 		});
 	});

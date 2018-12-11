@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import {Navbar, NavbarBrand, Nav, NavItem, Button} from 'reactstrap';
 import { getUserID } from '../Helper/authHeader';
 import { edit } from './Document';
-import { saveDoc } from '../Actions/docActions';
+import { saveDoc, fetchMembers } from '../Actions/docActions';
 import { fetchHistories } from '../Actions/historyActions';   
 import DocModals from './DocModals'; 
 
@@ -19,6 +19,10 @@ class DocNav extends Component {
 		this.onClickHistory = this.onClickHistory.bind(this);
 		this.onClickMembers = this.onClickMembers.bind(this);
 		this.onSubmit = this.onSubmit.bind(this);
+	}
+
+	componentWillMount() {
+		this.props.fetchMembers(this.props.id);
 	}
 
 	onClickHistory() {
@@ -56,7 +60,6 @@ class DocNav extends Component {
   	}
 
 	render() {
-		console.log(this.state.histories);
 		return (
 			<div className="navHome">
 				<Navbar light expand="md">
@@ -75,6 +78,7 @@ class DocNav extends Component {
 				</Navbar>
 				<DocModals
 					data={this.state.histories} 
+					data2={this.props.members}
 					id={this.props.id} 
 					history={this.state.history} 
 					toggleHistory={this.onClickHistory} 
@@ -87,7 +91,8 @@ class DocNav extends Component {
 
 const mapStateToProps = state => ({
   success: true,
-  histories: state.histories.items
+  histories: state.histories.items,
+  members: state.docs.members
 })
 
-export default connect(mapStateToProps, { saveDoc, fetchHistories })(DocNav);
+export default connect(mapStateToProps, { saveDoc, fetchHistories, fetchMembers })(DocNav);
