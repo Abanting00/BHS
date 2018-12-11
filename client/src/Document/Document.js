@@ -18,10 +18,11 @@ class Document extends Component {
 
     this.onChange = this.onChange.bind(this);
     this.edit = this.edit.bind(this);
+    this.onChangeHist = this.onChangeHist.bind(this);
   }
 
   componentWillMount() {
-    this.props.fetchDoc(this.state.id);
+    this.props.fetchDoc(this.state.id); 
     this.props.fetchTabooList();
   }
 
@@ -34,6 +35,13 @@ class Document extends Component {
   onChange(e) {
     this.setState({
       body: e.target.value
+    })
+  }
+
+  onChangeHist(history) {
+    console.log(history);
+    this.setState({
+      body: history
     })
   }
 
@@ -64,7 +72,7 @@ class Document extends Component {
 
     return (
       <div>
-        <DocNav body={this.state.body} id={this.state.id} edit={this.edit}/>
+        <DocNav body={this.state.body} id={this.state.id} edit={this.edit} viewHistory={this.onChangeHist}/> 
         <div className="doc-bg">
               <form>
                 <div>

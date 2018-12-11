@@ -43,7 +43,6 @@ class Members extends Component {
 					return x.includes(searchField) || searchField === ''
 			})
 		}
-		console.log(results)
 	 	return results;
 	}
 
@@ -63,9 +62,15 @@ class Members extends Component {
             		B.H.S Members
             	</ModalHeader>                	
             	<ModalBody>
-            		<Form onSubmit={this.onSubmit} className="search">
+            		<Form onSubmit={this.onSubmit} className="membersearch">
 						<FormGroup row>
-							<Col sm={12}>
+							<Col sm={3} style={{padding: '0'}}>
+								<Input type="select">
+									<option>Interest</option>
+									<option>Name</option>
+								</Input>
+							</Col>
+							<Col sm={9}>
 								<Input 
 									type="search" 
 									name="search" 

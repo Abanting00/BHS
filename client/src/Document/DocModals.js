@@ -9,6 +9,21 @@ class DocModals extends Component {
 		this.props.fetchHistories(this.props.id);
   	}
 
+  	HistoryTable(histories) {
+		const table = this.props.data.map(history => {
+			return <tr key={history._id}>
+		            <th scope="row">{history.version}</th>
+		            <td>{history.modified_by}</td>
+		            <td>{new Date(history.date_modified).toUTCString()}</td>
+		            <td>
+		            	<Button onClick={() => {this.props.viewHistory(history.body)}} color="danger">Revert</Button>
+		            </td>
+		          </tr>
+		});
+
+		return table;
+	}
+
 	render() {
 		return (
 			<div>
@@ -22,7 +37,8 @@ class DocModals extends Component {
 					<ModalBody>
 						<Table>
 							<tbody>
-								<HistoryTable data={this.props.data} />
+								{this.HistoryTable(this.props.data)}
+
 							</tbody>
 						</Table>
 					</ModalBody>
@@ -48,20 +64,6 @@ class DocModals extends Component {
 	}
 }
 
-const HistoryTable = (histories) => {
-	const table = histories.data.map(history => {
-		return <tr key={history._id}>
-	            <th scope="row">{history.version}</th>
-	            <td>{history.modified_by}</td>
-	            <td>{new Date(history.date_modified).toUTCString()}</td>
-	            <td>
-	            	<Button color="danger">Revert</Button>
-	            </td>
-	          </tr>
-	});
-
-	return table;
-}
 
 const MemberTable = (members) => {
 	const table = members.data.map(user => {

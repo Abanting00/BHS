@@ -5,7 +5,7 @@ import { getUserID } from '../Helper/authHeader';
 import { edit } from './Document';
 import { saveDoc, fetchMembers } from '../Actions/docActions';
 import { fetchHistories } from '../Actions/historyActions';   
-import DocModals from './DocModals'; 
+import DocModals from './DocModals';
 
 class DocNav extends Component {
 	constructor(props){
@@ -83,7 +83,8 @@ class DocNav extends Component {
 					history={this.state.history} 
 					toggleHistory={this.onClickHistory} 
 					members={this.state.members}
-					toggleMembers={this.onClickMembers}/>
+					toggleMembers={this.onClickMembers}
+					viewHistory={this.props.viewHistory}/>
 			</div>
 		);
 	}
