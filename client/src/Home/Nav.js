@@ -9,6 +9,12 @@ const Login = () => {
 	) 
 };
 
+const About = () => {
+	return (
+		<NavLink href="/About">About</NavLink>
+	)
+};
+
 const Register = () => {
 	return (
 		<NavLink href="/register">Sign Up</NavLink>
@@ -19,11 +25,12 @@ const HomeNav = (path) => {
 	return (
 		<Nav className="ml-auto" navbar>
 			<NavItem>
-				<NavLink href="/">About</NavLink>
+				<NavLink href="/About">About</NavLink>
 			</NavItem>
 			<NavItem>
-				{path.path === '/register' && <Login />} 
-				{path.path === '/' && <Register />}  
+				{path.path === '/register' && <Login /> &&<About />}
+				{path.path === '/' && <Register />}
+				{path.path === '/About' && <About />}
 			</NavItem>
 		</Nav>
 		)
@@ -53,6 +60,10 @@ const NavSwitch = (path) => {
 	return (
 		<DashboardNav />
 	)}
+	else if((currPath === '/About') || (currPath === '/')){
+		return (
+			<HomeNav path = {currPath} />
+		)}
 };
 
 const GeneralNav = (path) => {
