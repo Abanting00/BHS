@@ -4,7 +4,6 @@ import DashboardCard from './DashboardCard';
 import { connect } from 'react-redux';
 import { fetchDocs } from '../Actions/docActions';
 import { getUserID, getUserRole } from '../Helper/authHeader';
-import { search } from '../Helper/searchHelper';
 
 class CardList extends Component {
 
@@ -47,6 +46,13 @@ class CardList extends Component {
 
 		return ownedDocs;
 	}
+
+	search(searchField, docs, trait){
+	 	let results = docs.filter(doc => {
+	 		return doc[trait].toLowerCase().includes(searchField)
+	 	});
+	 	return results;
+	}
 	
 	render() {
 		const searchField = this.props.search.toLowerCase();
@@ -54,13 +60,13 @@ class CardList extends Component {
 
 		switch(this.props.option){
 			case 'Recent':
-				docs = search(searchField,this.recentDocs(), "title")
+				docs = this.search(searchField,this.recentDocs(), "title")
 				break
 			case 'Owned':
-				docs = search(searchField,this.ownedDocs(), "title")
+				docs = this.search(searchField,this.ownedDocs(), "title")
 				break
 			case 'Shared':
-				docs = search(searchField,this.sharedDocs(), "title")
+				docs = this.search(searchField,this.sharedDocs(), "title")
 				break
 			default:
 				docs = this.props.docs

@@ -3,7 +3,6 @@ import { Modal, ModalHeader, ModalBody } from 'reactstrap';
 import { CardColumns, Card, CardTitle, CardText, Col, Form, FormGroup, Input } from 'reactstrap';
 import { connect } from 'react-redux';
 import { fetchUsers } from '../Actions/userActions';
-import { search } from '../Helper/searchHelper';
 
 class Members extends Component {
 	constructor(props) {
@@ -31,10 +30,29 @@ class Members extends Component {
 		e.preventDefault();
 	}
 
+	search(searchField, users, trait){
+		let results;
+		if(trait == "name"){
+		 	results = users.filter(user => {
+		 		return (user.fname + (' ') + user.lname).toLowerCase().includes(searchField)
+		 	})
+		}
+		else if(trait == "interests"){
+			results = users.filter(user => {
+				let x = user.interests.map(interest => interest.toLowerCase()).join(' ')
+					return x.includes(searchField) || searchField === ''
+			})
+		}
+		console.log(results)
+	 	return results;
+	}
+
 	render() {
 		// Should not be access by GU
-		
 		let users = this.props.users.filter(user => {return user.role != 'GU'});
+		let field = this.state.searchField.toLowerCase();
+		users = this.search(field, users, "interests")
+
 		return (
 			<Modal 
 				size="lg" 
@@ -69,7 +87,7 @@ class Members extends Component {
 
 const UserCards = (users) => {
 	const userCards = users.data.map(user => {
-			return <Card body>
+			return <Card key={user._id} body>
 				        <CardTitle>{user.fname} {user.lname}</CardTitle>
 				        <CardText>
 				        	<span style={{fontWeight: "600"}}>Interests: </span> 
