@@ -49,7 +49,7 @@ const NavSwitch = (path) => {
 		return (
 			<HomeNav path = {currPath}/>
 	)}
-	else if(currPath === '/dashboard'){
+	else if((currPath === '/dashboard') || (currPath === '/inbox')){
 	return (
 		<DashboardNav />
 	)}
