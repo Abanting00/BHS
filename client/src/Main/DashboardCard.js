@@ -6,7 +6,6 @@ import { changeStatus } from '../Actions/docActions';
 import { Redirect } from 'react-router';
 import { getUserID, getUserRole } from '../Helper/authHeader';
 
-
 class DashboardCard extends Component {
 	constructor(props) {
 		super(props);
@@ -38,7 +37,7 @@ class DashboardCard extends Component {
 			locked: !this.state.locked
 		})
 
-		this.props.changeStatus(this.props.id);
+		this.props.changeStatus(this.props.id,getUserID());
 	}
 
 	toggle(e) {
@@ -50,14 +49,14 @@ class DashboardCard extends Component {
 
 	toggleEdit() {
 		this.setState({
-			edit: true
+			edit: true,
+			locked: !this.state.locked
 		});
+		this.props.changeStatus(this.props.id,getUserID());
 	}
 
 	
 	render() {
-		console.log("owner",this.state.owner);
-
 		let screen;
 		if (this.state.edit){
 			screen = <Redirect 
@@ -85,7 +84,7 @@ class DashboardCard extends Component {
 	          	<Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
 					<ModalHeader toggle={this.toggle}>{this.props.title}</ModalHeader>
 					<ModalBody>
-                        {this.state.owner ? 
+                        {(this.state.owner ||(this.props.locked_by == getUserID())) ? 
                         	<i className="material-icons" style={{float: "right"}} onClick={this.toggleNested}>settings</i> : <div></div>}
                         <br />
 
@@ -97,15 +96,13 @@ class DashboardCard extends Component {
                         		</p>
                         	</ModalBody>
                         </Modal>
-
-
-
 						<p className="text-center">
 						 {this.props.permission} Document
 						</p>
 						<p className="text-center">
 						  Status: {!this.state.locked ? <span style={{color: 'green'}}>Unlocked</span> : <span style={{color: 'red'}}>Locked</span>}
 						</p>
+						{this.state.locked && <p className="text-center">Locked by: {this.props.locked_by}</p>}
 					</ModalBody>
 					<ModalFooter>
 						{!this.state.locked ? <Button color="primary" onClick={this.toggleEdit}>Edit Doc</Button> : <Button color="primary" disabled onClick={this.toggleEdit}>Edit Doc</Button>}

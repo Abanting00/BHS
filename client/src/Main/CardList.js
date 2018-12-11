@@ -92,7 +92,8 @@ const DocCards = (docs) => {
 	            	key={doc._id}
 	            	id={doc._id} 
 					permission={doc.permission} 
-					locked={doc.is_locked} 
+					locked={doc.is_locked}
+					locked_by={doc.locked_by} 
 					title={doc.title} 
 					description={doc.description} 
 					modified={doc.modified}
