@@ -2,8 +2,24 @@ import React, { Component } from 'react';
 import { Table, Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { fetchHistories } from '../Actions/historyActions'; 
 import { connect } from 'react-redux';
+import Members from '../Main/Members';
 
 class DocModals extends Component {
+	constructor(props){
+		super(props);
+
+		this.state = {
+			addMember: false
+		}
+
+		this.onClickAdd = this.onClickAdd.bind(this);
+	}
+
+	onClickAdd() {
+		this.setState({
+			addMember: !this.state.addMember
+		})
+	}
 
 	componentWillMount() {
 		this.props.fetchHistories(this.props.id);
@@ -62,8 +78,9 @@ class DocModals extends Component {
 					</Table>
 				</ModalBody>
 				<ModalFooter>
-	            	{this.props.owner ? <Button color="danger">Invite Member</Button> : <div></div>}
+	            	{this.props.owner ? <Button color="danger" onClick={this.onClickAdd}>Invite Member</Button> : <div></div>}
 	            </ModalFooter>
+	            <Members docid={this.props.id} docmember={true} members={this.state.addMember} toggle={this.onClickAdd} />
 			</Modal>
 			</div>
 		);

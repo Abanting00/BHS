@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
-import { Alert, Modal, ModalHeader, ModalBody } from 'reactstrap';
+import { Button, Alert, Modal, ModalHeader, ModalBody } from 'reactstrap';
 import { CardColumns, Card, CardTitle, CardText, Col, Form, FormGroup, Input } from 'reactstrap';
 import { connect } from 'react-redux';
 import { getUserRole } from '../Helper/authHeader';
 import { fetchUsers } from '../Actions/userActions';
+import { addMember } from '../Actions/docActions';
 
 class Members extends Component {
 	constructor(props) {
@@ -18,10 +19,15 @@ class Members extends Component {
 		this.onChange = this.onChange.bind(this);
 		this.onSubmit = this.onSubmit.bind(this);
 		this.optionChange = this.optionChange.bind(this);
+		this.onAdd = this.onAdd.bind(this);
 	}
 
 	componentWillMount() {
 		this.props.fetchUsers();
+	}
+
+	onAdd(docid,userid) {
+		this.props.addMember(docid,userid);
 	}
 
 	onChange(e) {
@@ -39,6 +45,21 @@ class Members extends Component {
 
 	onSubmit(e) {
 		e.preventDefault();
+	}
+
+	UserCards(users, isdoc) {
+		const userCards = users.map(user => {
+				return <Card key={user._id} body>
+					        <CardTitle>{user.fname} {user.lname}</CardTitle>
+					        <CardText>
+					        	<span style={{fontWeight: "600"}}>Interests: </span> 
+					        	{user.interests.join(', ')} 
+					        </CardText>
+					        {isdoc ? <Button color="info" onClick={() => this.onAdd(this.props.docid,user.username)}>Invite</Button> : <div></div>}
+				      </Card>
+			});
+
+		return userCards;
 	}
 
 	search(searchField, users, trait){
@@ -98,7 +119,7 @@ class Members extends Component {
 						</FormGroup>
 					</Form>
 					<CardColumns>
-						<UserCards data={users} />
+						{this.UserCards(users, this.props.docmember)}
 					</CardColumns>
             	</ModalBody>)
 		}
@@ -118,23 +139,9 @@ class Members extends Component {
 	}
 }
 
-const UserCards = (users) => {
-	const userCards = users.data.map(user => {
-			return <Card key={user._id} body>
-				        <CardTitle>{user.fname} {user.lname}</CardTitle>
-				        <CardText>
-				        	<span style={{fontWeight: "600"}}>Interests: </span> 
-				        	{user.interests.join(', ')} 
-				        </CardText>
-			      </Card>
-		});
-
-	return userCards;
-}
-
 const mapStateToProps = state => ({
 	users: state.users.users
 });
 
 
-export default connect(mapStateToProps, { fetchUsers })(Members);
+export default connect(mapStateToProps, { fetchUsers, addMember })(Members);
