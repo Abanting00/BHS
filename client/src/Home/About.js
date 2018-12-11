@@ -4,21 +4,19 @@ import './About.css';
 
 
 class About extends Component {
-    constructor(props) {
-        super(props);
-
-        this.toggle = this.toggle.bind(this);
-        this.state = {
-            isOpen:false
-        };
-    }
-
     render() {
         return (
-            <div>
-                <div className="bg">
-
+            <div className="About-pg">
+                <div className="info">
+                    <h1>About</h1>
+                    <div className="main-text">
+                        <p>B.H.S' File Document Sharing System is developed by Abigal
+                            Carlos & Josue for Jie Wie's CS322
+                        </p>
+                    </div>
                 </div>
+
+
             </div>
         );
     }
