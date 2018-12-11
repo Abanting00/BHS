@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Table, Button, Modal, ModalHeader, ModalBody } from 'reactstrap';
-import { fetchHistories } from '../Actions/historyActions';   
+import { Table, Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import { fetchHistories } from '../Actions/historyActions'; 
 import { connect } from 'react-redux';
 
 class DocModals extends Component {
@@ -16,7 +16,10 @@ class DocModals extends Component {
 		            <td>{history.modified_by}</td>
 		            <td>{new Date(history.date_modified).toUTCString()}</td>
 		            <td>
-		            	<Button onClick={() => {this.props.viewHistory(history.body)}} color="danger">Revert</Button>
+		            	<Button onClick={() => {this.props.viewHistory(history.body)}} color="info">View</Button>
+		            </td>
+		            <td>
+		            	<Button color="danger">Complain</Button>
 		            </td>
 		          </tr>
 		});
@@ -32,7 +35,7 @@ class DocModals extends Component {
 					isOpen={this.props.history}
 					toggle={this.props.toggleHistory}>
 					<ModalHeader toggle={this.props.toggleHistory}>
-						Revert History
+						View History
 					</ModalHeader>
 					<ModalBody>
 						<Table>
@@ -49,7 +52,7 @@ class DocModals extends Component {
 					isOpen={this.props.members}
 					toggle={this.props.toggleMembers}>
 					<ModalHeader toggle={this.props.toggleMembers}>
-					Revert History
+					Member Lists
 				</ModalHeader>
 				<ModalBody>
 					<Table>
@@ -58,6 +61,9 @@ class DocModals extends Component {
 						</tbody>
 					</Table>
 				</ModalBody>
+				<ModalFooter>
+	            	{this.props.owner ? <Button color="danger">Invite Member</Button> : <div></div>}
+	            </ModalFooter>
 			</Modal>
 			</div>
 		);
@@ -72,6 +78,9 @@ const MemberTable = (members) => {
 	            <td>{user.username}</td>
 	            <td>
 	            	<Button color="danger">Report</Button>
+	            </td>
+	            <td>
+	            	<Button color="danger">Complain</Button>
 	            </td>
 	          </tr>
 	});

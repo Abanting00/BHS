@@ -5,6 +5,7 @@ import Dashboard from './Main/Dashboard';
 import Document from './Document/Document';
 import Register from './Home/Register';
 import Navs from './Home/Nav';
+import Inbox from './Main/Inbox';
 
 class Routes extends Component {
 	render() {
@@ -17,6 +18,7 @@ class Routes extends Component {
 					<Route path='/dashboard' component={Dashboard}/>
 					<Route path='/document' component={Document}/>
 					<Route path='/register' component={Register}/>
+					<Route path='/inbox' component={Inbox}/>
 				</Switch>
 				</div>
 			</Router>

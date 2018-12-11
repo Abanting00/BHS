@@ -106,3 +106,20 @@ export const fetchMembers = (docid) => dispatch => {
 			});
 		})
 }
+
+export const addMember = (docid,username) => dispatch => {
+	const header = authHeader();
+	const reqOptions = {
+		method: 'PUT',
+		headers: header
+	}
+
+	fetch(`http://localhost:8000/api/docs/${docid}/addmember/${username}`, reqOptions)
+		.then(res => res.json())
+		.then(doc => {
+			dispatch({
+				type: DOC_TYPES.ADD_MEMBER,
+				payload: doc
+			});
+		})
+}

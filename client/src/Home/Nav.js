@@ -33,7 +33,7 @@ const DashboardNav = () => {
 	return (
 		<Nav className="ml-auto" navbar>
 			<NavItem>
-				<NavLink>Inbox</NavLink>
+				<NavLink href='/inbox'>Inbox</NavLink>
 			</NavItem>
 			<NavItem>
 				<NavLink href="/" onClick = {()=>Logout()}>Logout</NavLink>

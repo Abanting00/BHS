@@ -40,6 +40,11 @@ export default function(state = intialState, action) {
 				...state,
 				members: action.payload.data
 			}
+		case DOC_TYPES.ADD_MEMBER:
+			return {
+				...state,
+				status: action.payload
+			}
 		default: 
 			return state;
 	}

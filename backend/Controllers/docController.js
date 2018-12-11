@@ -94,10 +94,12 @@ exports.add_member = (req,res) => {
 		if(err)
 			return res.json({success:false, error:err})
 		
-		User.findById(req.params.userid, (err, user) => {
-			if(err)
-			return res.json({success:false, error:err})
+		const query = User.where({username: req.params.name})
 
+		query.findOne((err, user) => {
+			if (err) 
+				return res.json({success: false, error: err})
+			
 			doc.members.push(user.id);
 			doc.save(err => {
 				if(err)

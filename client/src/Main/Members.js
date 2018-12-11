@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
-import { Modal, ModalHeader, ModalBody } from 'reactstrap';
+import { Alert, Modal, ModalHeader, ModalBody } from 'reactstrap';
 import { CardColumns, Card, CardTitle, CardText, Col, Form, FormGroup, Input } from 'reactstrap';
 import { connect } from 'react-redux';
+import { getUserRole } from '../Helper/authHeader';
 import { fetchUsers } from '../Actions/userActions';
 
 class Members extends Component {
@@ -9,7 +10,8 @@ class Members extends Component {
 		super(props);
 
 		this.state = {
-			searchField: ""
+			searchField: "",
+			role: getUserRole()
 		}
 
 		this.onChange = this.onChange.bind(this);
@@ -47,21 +49,15 @@ class Members extends Component {
 	}
 
 	render() {
-		// Should not be access by GU
 		let users = this.props.users.filter(user => {return user.role != 'GU'});
 		let field = this.state.searchField.toLowerCase();
 		users = this.search(field, users, "interests")
 
-		return (
-			<Modal 
-				size="lg" 
-				isOpen={this.props.members} 
-				toggle={this.props.toggle} 
-				className={this.props.className}>
-            	<ModalHeader toggle={this.props.toggle}>
-            		B.H.S Members
-            	</ModalHeader>                	
-            	<ModalBody>
+		let screen;
+		if(this.state.role == 'GU'){
+			screen = <ModalBody><Alert color="warning">Guest User can't Access Members!</Alert></ModalBody>
+		}else{
+			screen = (<ModalBody>
             		<Form onSubmit={this.onSubmit} className="membersearch">
 						<FormGroup row>
 							<Col sm={3} style={{padding: '0'}}>
@@ -84,7 +80,19 @@ class Members extends Component {
 					<CardColumns>
 						<UserCards data={users} />
 					</CardColumns>
-            	</ModalBody>
+            	</ModalBody>)
+		}
+
+		return (
+			<Modal 
+				size="lg" 
+				isOpen={this.props.members} 
+				toggle={this.props.toggle} 
+				className={this.props.className}>
+            	<ModalHeader toggle={this.props.toggle}>
+            		B.H.S Members
+            	</ModalHeader>      
+            	{screen}
 			</Modal> 
 		);
 	}

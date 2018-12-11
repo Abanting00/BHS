@@ -1,14 +1,17 @@
 import React, { Component } from 'react';
-import { Col, Row, Button, Form, FormGroup, Label, Input } from 'reactstrap';
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import { Alert, Form, FormGroup, Label, Input } from 'reactstrap';
+import { getUser } from '../Helper/authHeader';
 import { connect } from 'react-redux';
-import { uploadImage } from '../Actions/userActions';
+import avatar from './head.jpg';
+import './Profile.css';
 
 class Profile extends Component {
 	constructor(props) {
 		super(props);
 
 		this.state = {
-			file: null
+			user: getUser()
 		}
 
 		this.onSubmit = this.onSubmit.bind(this);
@@ -16,38 +19,31 @@ class Profile extends Component {
 	}
 
 	onUpload(e) {
-        this.setState({file:e.target.files[0]});
     }
 
     onSubmit(e) {
     	e.preventDefault();
-
- 		const formData = new FormData();
- 		formData.append('image',this.state.file);
- 		console.log(formData);
-
- 		this.props.uploadImage(formData);
     }
 
 
 	render() {
-		console.log(this.state.file)
 		return (
-			<Form onSubmit={this.onSubmit}>
-				<FormGroup>
-		          <Label for="Image">File</Label>
-		          <Input type="file" name="image"  onChange={this.onUpload} required/>
-		        </FormGroup>
-				<Button className="submitbutton" type="submit" color="primary"><span className="btn-span">Register</span></Button>
-
-		    </Form>
+			<Modal isOpen={this.props.open} toggle={this.props.toggle}>
+				<ModalHeader toggle={this.props.toggle}>Profile</ModalHeader>
+				<ModalBody className="center-profile">
+					<div className="center-profile">
+				    	<img className="avatar" src={avatar} alt="Avatar"/> 
+				    </div>
+				    <h3 className="text-center"> {this.state.user.fname} {this.state.user.lname} </h3>
+				    <h4 className="text-center">Role: {this.state.user.role} </h4>
+				</ModalBody>
+				<ModalFooter>
+				{this.state.user.role === 'GU' ? <Button color="info" onClick={this.props.toggle}>Apply To Be OU</Button> : <div></div>}
+				<Button color="secondary" onClick={this.props.toggle}>Cancel</Button>
+				</ModalFooter>
+			</Modal>
 		);
 	}
 }
 
-const mapStateToProps = state => ({
-	status: state.users.status
-})
-
-
-export default connect(mapStateToProps, { uploadImage })(Profile);
+export default Profile;

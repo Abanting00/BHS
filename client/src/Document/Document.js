@@ -13,7 +13,8 @@ class Document extends Component {
     this.state = {
       body: this.props.body,
       id: this.props.location.state.id,
-      view: this.props.location.state.view  
+      view: this.props.location.state.view,
+      owner: this.props.location.state.owner  
     }
 
     this.onChange = this.onChange.bind(this);
@@ -72,7 +73,7 @@ class Document extends Component {
 
     return (
       <div>
-        <DocNav body={this.state.body} id={this.state.id} edit={this.edit} viewHistory={this.onChangeHist}/> 
+        <DocNav owner={this.state.owner} body={this.state.body} id={this.state.id} edit={this.edit} viewHistory={this.onChangeHist}/> 
         <div className="doc-bg">
               <form>
                 <div>

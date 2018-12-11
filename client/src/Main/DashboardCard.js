@@ -16,7 +16,7 @@ class DashboardCard extends Component {
 			modal: false,
 	      	nestedModal: false,
 			edit: false,
-			owner: getUserID() === owner || getUserRole() === 'SU',
+			owner: owner || getUserRole() === 'SU',
 			locked: this.props.locked
 		}
 
@@ -56,6 +56,8 @@ class DashboardCard extends Component {
 
 	
 	render() {
+		console.log("owner",this.state.owner);
+
 		let screen;
 		if (this.state.edit){
 			screen = <Redirect 
@@ -64,7 +66,8 @@ class DashboardCard extends Component {
 							state: { 
 								id: this.props.id,
 								view: this.props.view,
-								members: this.props.members 
+								members: this.props.members ,
+								owner: this.state.owner
 							}}}/>
 		}
 

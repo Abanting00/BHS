@@ -7,8 +7,17 @@
 	width: 20vw;
 }
 
+.inbox {
+	background-color: #E1E1E1E1;
+}
+
+.inbox-title{
+	text-align: center;
+	padding: 10px 30%;
+}
+
 #docs {
-	background-color:  #E1E1E1E1;
+	background-color: #E1E1E1E1;
 	height: 90vh;
 	overflow: hidden;
 }

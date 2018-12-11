@@ -6,7 +6,7 @@ import avatar from './head.jpg';
 import CreateDoc from './CreateDoc';
 import Search from './Search';
 import Members from './Members';
-
+import Profile from './Profile.js';
 
 class Dashboard extends Component {
     constructor(props) {
@@ -15,13 +15,21 @@ class Dashboard extends Component {
         modal: false,
         option: 'Recent',
         search: false,
-        members: false
+        members: false,
+        settings: false
       };
 
       this.toggle = this.toggle.bind(this);
+      this.toggleSettings = this.toggleSettings.bind(this);
       this.toggleSearch = this.toggleSearch.bind(this);
       this.toggleMembers = this.toggleMembers.bind(this);
       this.onClickMode = this.onClickMode.bind(this);
+  }
+
+  toggleSettings() {
+    this.setState({
+      settings: !this.state.settings
+    });
   }
 
   toggleMembers() {
@@ -75,7 +83,7 @@ class Dashboard extends Component {
                           <div className="center-icons">
                             <i className="material-icons icons" onClick={this.toggleSearch}>search</i>
                             <i className="material-icons icons" onClick={this.toggleMembers}>people</i>
-                            <i className="material-icons icons">settings</i>
+                            <i className="material-icons icons" onClick={this.toggleSettings}>settings</i>
                           </div>
                       </div>
                     </Col>
@@ -86,9 +94,8 @@ class Dashboard extends Component {
                   </Row>
                 </Container>
               </div>
-
               <Members members={this.state.members} toggle={this.toggleMembers} />
-
+              <Profile open={this.state.settings} toggle={this.toggleSettings} />
               <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
                 <ModalHeader toggle={this.toggle}>Create Document</ModalHeader>
                 <ModalBody>

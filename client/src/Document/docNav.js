@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {Navbar, NavbarBrand, Nav, NavItem, Button} from 'reactstrap';
-import { getUserID } from '../Helper/authHeader';
+import { getUserID, getUserRole } from '../Helper/authHeader';
 import { edit } from './Document';
 import { saveDoc, fetchMembers } from '../Actions/docActions';
 import { fetchHistories } from '../Actions/historyActions';   
@@ -14,7 +14,8 @@ class DocNav extends Component {
 		this.state = {
 			history: false,
 			members: false,
-			histories: []
+			histories: [],
+			role: getUserRole()
 		}
 		this.onClickHistory = this.onClickHistory.bind(this);
 		this.onClickMembers = this.onClickMembers.bind(this);
@@ -60,6 +61,10 @@ class DocNav extends Component {
   	}
 
 	render() {
+		let button = <Button onClick={this.onSubmit} color="info" style={{marginTop:"5px"}}>Save</Button>;
+		if(this.state.role == 'GU')
+			button = <Button onClick={this.onSubmit} color="info" style={{marginTop:"5px"}} disabled>Save</Button>
+
 		return (
 			<div className="navHome">
 				<Navbar light expand="md">
@@ -72,11 +77,12 @@ class DocNav extends Component {
 							<i className="material-icons docicons" name="history" onClick={this.onClickHistory}>history</i>
 						</NavItem>
 						<NavItem>
-							<Button onClick={this.onSubmit} color="info" style={{marginTop:"5px"}}>Save</Button>
+							{button}
 						</NavItem>
 					</Nav>
 				</Navbar>
 				<DocModals
+					owner={this.props.owner}
 					data={this.state.histories} 
 					data2={this.props.members}
 					id={this.props.id} 
