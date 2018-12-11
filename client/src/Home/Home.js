@@ -3,7 +3,7 @@ import { Container, Row, Col } from 'reactstrap';
 import './Home.css';
 import Login from './Login';
 
-class home extends Component {
+class Home extends Component {
     constructor(props) {
     super(props);
 
@@ -44,4 +44,4 @@ class home extends Component {
     }
 }; // haven't pushed
 
-export default home;
+export default Home;

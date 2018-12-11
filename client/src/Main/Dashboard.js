@@ -8,7 +8,7 @@ import Search from './Search';
 import Members from './Members';
 
 
-class dashboard extends Component {
+class Dashboard extends Component {
     constructor(props) {
       super(props);
       this.state = {
@@ -100,4 +100,4 @@ class dashboard extends Component {
     }
 };
 
-export default dashboard;
+export default Dashboard;

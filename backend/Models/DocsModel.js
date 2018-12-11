@@ -23,6 +23,11 @@ const DocSchema = new Schema ({
 		default: 1
 	},
 
+	locked_by: {
+		type: Schema.Types.ObjectId,
+		ref:'UserModel'
+	},
+	
 	is_locked: {
 		type: Boolean,
 		required: true,

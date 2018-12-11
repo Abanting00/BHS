@@ -21,3 +21,7 @@ export const USER_TYPES = {
 export const TABOO_TYPES = {
 	FETCH_TABOO: 'FETCH_TABOO'
 }
+
+export const HISTORY_TYPES = {
+	FETCH_DOC_HIST: 'FETCH_DOC_HIST'
+}

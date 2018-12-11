@@ -10,13 +10,13 @@ import { getUserID, getUserRole } from '../Helper/authHeader';
 class DashboardCard extends Component {
 	constructor(props) {
 		super(props);
-
+		let owner = this.props.permission !== 'Public' && getUserID() === this.props.owner;
 
 		this.state = {
 			modal: false,
 	      	nestedModal: false,
 			edit: false,
-			owner: getUserID() === this.props.owner || getUserRole() === 'SU',
+			owner: getUserID() === owner || getUserRole() === 'SU',
 			locked: this.props.locked
 		}
 

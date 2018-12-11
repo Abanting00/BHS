@@ -42,7 +42,7 @@ class CardList extends Component {
 	ownedDocs() {
 		const userID = getUserID();
 		const ownedDocs = this.props.docs.filter(doc => {
-			return userID === doc.owner;
+			return userID === doc.owner && doc.permission != "Public";
 		})
 
 		return ownedDocs;
