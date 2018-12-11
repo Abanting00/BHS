@@ -11,11 +11,13 @@ class Members extends Component {
 
 		this.state = {
 			searchField: "",
-			role: getUserRole()
+			role: getUserRole(),
+			option: "Name"
 		}
 
 		this.onChange = this.onChange.bind(this);
 		this.onSubmit = this.onSubmit.bind(this);
+		this.optionChange = this.optionChange.bind(this);
 	}
 
 	componentWillMount() {
@@ -28,18 +30,25 @@ class Members extends Component {
 		})
 	}
 
+	optionChange(e) {
+		console.log(e.target.value);
+		this.setState({
+			option: e.target.value
+		})
+	}
+
 	onSubmit(e) {
 		e.preventDefault();
 	}
 
 	search(searchField, users, trait){
 		let results;
-		if(trait == "name"){
+		if(trait == "Name"){
 		 	results = users.filter(user => {
 		 		return (user.fname + (' ') + user.lname).toLowerCase().includes(searchField)
 		 	})
 		}
-		else if(trait == "interests"){
+		else if(trait == "Interest"){
 			results = users.filter(user => {
 				let x = user.interests.map(interest => interest.toLowerCase()).join(' ')
 					return x.includes(searchField) || searchField === ''
@@ -51,7 +60,18 @@ class Members extends Component {
 	render() {
 		let users = this.props.users.filter(user => {return user.role != 'GU'});
 		let field = this.state.searchField.toLowerCase();
-		users = this.search(field, users, "interests")
+		// users = this.search(field, users, "Interests")
+
+		switch(this.state.option){
+			case 'Interest':
+				users = this.search(field, users, "Interest")
+				break
+			case 'Name':
+				users = this.search(field, users, "Name")
+				 break
+			default:
+				break
+		}
 
 		let screen;
 		if(this.state.role == 'GU'){
@@ -61,9 +81,9 @@ class Members extends Component {
             		<Form onSubmit={this.onSubmit} className="membersearch">
 						<FormGroup row>
 							<Col sm={3} style={{padding: '0'}}>
-								<Input type="select">
-									<option>Interest</option>
-									<option>Name</option>
+								<Input type="select"  onChange={this.optionChange}>
+									<option value="Name">Name</option>
+									<option value="Interest">Interest</option>
 								</Input>
 							</Col>
 							<Col sm={9}>

@@ -40,7 +40,6 @@ class Document extends Component {
   }
 
   onChangeHist(history) {
-    console.log(history);
     this.setState({
       body: history
     })
