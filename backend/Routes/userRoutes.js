@@ -20,7 +20,7 @@ router.post('/login', UserController.user_login);
 router.post('/register', UserController.new_user);
 
 // Update user role, takes in their username and role privelige
-router.put('/user/updateRole', UserController.user_update_role);
+router.put('/user/updateRole/:id', UserController.user_update_role);
 
 // Update user photo
 router.put('/user/:username/updatePhoto', UserController.user_update_img);

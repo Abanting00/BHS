@@ -114,13 +114,15 @@ exports.user_update_interests = (req, res) => {
 
 // Update users's role
 exports.user_update_role = (req, res) => {
-	const {username, role} = req.body;
-	query = {username: username}
-
-	User.findOneAndUpdate(query, {role: role}, err => {
-		if (err)
-			return res.json({success: false, error: err})
-		return res.json({success: true})
+	User.findById(req.params.id,(err,user) => {
+		if(err)
+			return res.json({success:false, error:err})
+		user.role = 'OU';
+		user.save(err => {
+				if(err)
+					return res.json({success:false, error:err})
+				return res.json({success:true, message: "Successfully Updated Role."})
+			});
 	});
 };
 
