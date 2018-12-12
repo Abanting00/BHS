@@ -9,6 +9,7 @@ exports.new_doc = (req,res) =>{
 		title:title,
 		description:description,
 		body:body,
+		locked_by: owner,
 		is_locked:is_locked,
 		permission:permission,
 		owner:owner
