@@ -94,7 +94,7 @@ class Dashboard extends Component {
                   </Row>
                 </Container>
               </div>
-              <Members members={this.state.members} toggle={this.toggleMembers} />
+              <Members docmember={false} members={this.state.members} toggle={this.toggleMembers} />
               <Profile open={this.state.settings} toggle={this.toggleSettings} />
               <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
                 <ModalHeader toggle={this.toggle}>Create Document</ModalHeader>
