@@ -4,6 +4,7 @@ const intialState = {
 	users: [],
 	user: {},
 	invites: [],
+	complaints: [],
 	status: false,
 	exists: false
 }
@@ -43,7 +44,7 @@ export default (state = intialState, action) => {
 		case USER_TYPES.FETCH_COMPLAINTS:
 			return {
 				...state,
-				invites: action.payload.data
+				complaints: action.payload.data
 			};
 		case USER_TYPES.NEW_INVITE:
 			return {

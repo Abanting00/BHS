@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import { Container, Row, Col, NavItem } from 'reactstrap';
 import { Table, Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import { connect } from 'react-redux';
+import { fetchInvites, fetchComplaints, deleteInvite, deleteComplaint } from '../Actions/userActions';
+import { addMember, deleteMember } from '../Actions/docActions';
+
 
 class Inbox extends Component {
 	constructor(props){
@@ -15,6 +19,15 @@ class Inbox extends Component {
 		this.onClickInv = this.onClickInv.bind(this);
 	}
 
+ 	componentWillMount() {
+    	this.props.fetchInvites(); 
+    	this.props.fetchComplaints();
+  	}
+
+  	componentWillReceiveProps(nextProps) {
+  		// Might Need
+  	}
+
 	onClickReport(e) {
 		this.setState({
             report: !(this.state.report)
@@ -28,6 +41,22 @@ class Inbox extends Component {
 	}
 
 	render() {
+		const invites = this.props.invites.map(doc => {
+			return <tr key={doc._id}>
+					<td>{doc.title}</td>
+					<td><Button color="success" onClick={() => console.log("Accept")}>Accept</Button></td>
+					<td><Button color="danger" onClick={() => console.log("Decline")}>Decline</Button></td>
+				</tr>
+		});
+
+		const complaints = this.props.complaints.map(user => {
+			return <tr key={user._id}>
+					<td>{user.fname} {user.lname}</td>
+					<td><Button color="success" onClick={() => console.log("Accept")}>Remove User</Button></td>
+					<td><Button color="danger" onClick={() => console.log("Decline")}>Do nothing</Button></td>
+				</tr>
+		})
+
 		return (
 			<div>
 				<NavItem>
@@ -42,7 +71,7 @@ class Inbox extends Component {
 						<ModalBody>
 							<Table>
 								<tbody>
-									
+									{complaints}
 								</tbody>
 							</Table>
 						</ModalBody>
@@ -56,7 +85,7 @@ class Inbox extends Component {
 						<ModalBody>
 							<Table>
 								<tbody>
-									
+									{invites}
 								</tbody>
 							</Table>
 						</ModalBody>
@@ -66,4 +95,16 @@ class Inbox extends Component {
 	}
 }
 
-export default Inbox;
+const mapStateToProps = state => ({
+  invites: state.users.invites,
+  complaints: state.users.complaints,
+});
+
+export default connect(
+	mapStateToProps, {
+		fetchComplaints,
+		fetchInvites,
+		deleteInvite,
+		deleteComplaint,
+		addMember,
+		deleteMember})(Inbox);

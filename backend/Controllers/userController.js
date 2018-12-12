@@ -59,7 +59,7 @@ exports.user_login = (req, res) => {
 		bcrpyt.compare(password, user.password, (err, samepassword) =>{
 			if (samepassword){
 				// If true we need to return a signed jwt token for frontend
-				const token = jwt.sign({id: user._id}, process.env.SECRET, { expiresIn: '1h' });
+				const token = jwt.sign({id: user._id}, process.env.SECRET);
 				return res.json({success: true, message: "user found!!!", data:{user: user, token: token}});
 			}
 			return res.json({success: false, message: "Wrong Username or Password."});
