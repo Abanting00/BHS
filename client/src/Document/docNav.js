@@ -61,6 +61,7 @@ class DocNav extends Component {
   	}
 
 	render() {
+		console.log("ID",this.props.id)
 		let button = <Button onClick={this.onSubmit} color="info" style={{marginTop:"5px"}}>Save</Button>;
 		if(this.state.role == 'GU')
 			button = <Button onClick={this.onSubmit} color="info" style={{marginTop:"5px"}} disabled>Save</Button>

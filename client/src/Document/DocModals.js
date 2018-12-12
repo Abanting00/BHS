@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import { Table, Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { fetchHistories } from '../Actions/historyActions'; 
+import { complaintUser } from '../Actions/userActions';
 import { connect } from 'react-redux';
 import Members from '../Main/Members';
+import { getUserID, getUserRole } from '../Helper/authHeader';
 
 class DocModals extends Component {
 	constructor(props){
@@ -21,11 +23,16 @@ class DocModals extends Component {
 		})
 	}
 
+	onComplain(userid) {
+		this.props.complaintUser(getUserID(),userid,this.props.id);
+	}
+
 	componentWillMount() {
 		this.props.fetchHistories(this.props.id);
   	}
 
   	HistoryTable(histories) {
+  		console.log("HISTORY", this.props.id)
 		const table = this.props.data.map(history => {
 			return <tr key={history._id}>
 		            <th scope="row">{history.version}</th>
@@ -35,13 +42,28 @@ class DocModals extends Component {
 		            	<Button onClick={() => {this.props.viewHistory(history.body)}} color="info">View</Button>
 		            </td>
 		            <td>
-		            	<Button color="danger">Complain</Button>
+		            	<Button color="danger" onClick={() => {this.onComplain(history.modified_by, this.props.id)}}>Complain</Button>
 		            </td>
 		          </tr>
 		});
 
 		return table;
 	}
+
+	MemberTable(members) {
+		const table = members.map(user => {
+			return <tr key={user._id}>
+		            <th scope="row">{user.fname} {user.lname}</th>
+		            <td>{user.username}</td>
+		            <td>
+		            	<Button color="danger" onClick={() => {this.onComplain(user._id)}}>Complain</Button>
+		            </td>
+		          </tr>
+		});
+
+		return table;
+	}
+
 
 	render() {
 		return (
@@ -73,7 +95,7 @@ class DocModals extends Component {
 				<ModalBody>
 					<Table>
 						<tbody>
-							<MemberTable data={this.props.data2} />
+							{this.MemberTable(this.props.data2)}
 						</tbody>
 					</Table>
 				</ModalBody>
@@ -87,22 +109,7 @@ class DocModals extends Component {
 	}
 }
 
-
-const MemberTable = (members) => {
-	const table = members.data.map(user => {
-		return <tr key={user._id}>
-	            <th scope="row">{user.fname} {user.lname}</th>
-	            <td>{user.username}</td>
-	            <td>
-	            	<Button color="danger">Complain</Button>
-	            </td>
-	          </tr>
-	});
-
-	return table;
-}
-
 const mapStateToProps = state => ({
 })
 
-export default connect(mapStateToProps, { fetchHistories })(DocModals);
+export default connect(mapStateToProps, { fetchHistories, complaintUser })(DocModals);

@@ -160,7 +160,7 @@ export const complaintUser = (ownerid,userid,docid) => dispatch => {
 		.then(res => res.json())
 		.then(res => {
 			dispatch({
-				type: USER_TYPES.NEW_COMPAINT,
+				type: USER_TYPES.NEW_COMPLAINT,
 				payload: res
 			});
 		})
