@@ -4,6 +4,7 @@ import { Table, Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'react
 import { connect } from 'react-redux';
 import { fetchInvites, fetchComplaints, deleteInvite, deleteComplaint } from '../Actions/userActions';
 import { addMember, deleteMember } from '../Actions/docActions';
+import { getUserID, getUser } from '../Helper/authHeader';
 
 
 class Inbox extends Component {
@@ -17,6 +18,8 @@ class Inbox extends Component {
 
 		this.onClickReport = this.onClickReport.bind(this);
 		this.onClickInv = this.onClickInv.bind(this);
+		this.onClickAccept = this.onClickAccept.bind(this);
+		this.onClickDecline = this.onClickDecline.bind(this);
 	}
 
  	componentWillMount() {
@@ -28,24 +31,33 @@ class Inbox extends Component {
   		// Might Need
   	}
 
-	onClickReport(e) {
+	onClickReport() {
 		this.setState({
             report: !(this.state.report)
         })
 	}
 
-	onClickInv(e) {
+	onClickInv() {
 		this.setState({
             invitations: !(this.state.invitations)
         })
+	}
+
+	onClickAccept(docid, userid) {
+		this.props.addMember(docid, getUser().username)
+		this.props.deleteInvite(docid,userid)
+	}
+
+	onClickDecline(docid,userid) {
+		this.props.deleteInvite(docid,userid)
 	}
 
 	render() {
 		const invites = this.props.invites.map(doc => {
 			return <tr key={doc._id}>
 					<td>{doc.title}</td>
-					<td><Button color="success" onClick={() => console.log("Accept")}>Accept</Button></td>
-					<td><Button color="danger" onClick={() => console.log("Decline")}>Decline</Button></td>
+					<td><Button name="accept"color="success" onClick={() => this.onClickAccept(doc._id,getUserID())}>Accept</Button></td>
+					<td><Button name="decline"color="danger" onClick={() => this.onClickDecline(doc._id,getUserID())}>Decline</Button></td>
 				</tr>
 		});
 
