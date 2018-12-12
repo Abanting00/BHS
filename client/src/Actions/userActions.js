@@ -206,7 +206,7 @@ export const deleteComplaint = (ownerid,userid,docid) => dispatch => {
 	})
 }
 
-export const updateRole = (user) => dispatch => {
+export const updateRole = (userid) => dispatch => {
 	const header = authHeader();
 	const reqOptions = {
 		method: 'PUT',
