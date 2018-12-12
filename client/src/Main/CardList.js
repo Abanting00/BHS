@@ -11,6 +11,22 @@ class CardList extends Component {
 		this.props.fetchDocs();   
 	}
 
+	popularDocs() {
+		const userID = getUserID();
+		let sortedDocs = this.props.docs.sort((doc1, doc2) => {
+			return doc2.version - doc1.version;
+		});
+
+		sortedDocs = sortedDocs.filter(doc => {
+			if(doc.permission === 'Shared' && doc.members.includes(userID)){
+				return true;
+			}
+			return !(doc.permission === 'Private' && getUserID() !== doc.owner);
+		});
+		
+		return sortedDocs
+	}
+
 	recentDocs() {
 		const userID = getUserID();
 		let sortedDocs = this.props.docs.sort((doc1, doc2) => {
@@ -66,6 +82,9 @@ class CardList extends Component {
 		let docs;
 
 		switch(this.props.option){
+			case 'Popular':
+				docs = this.search(searchField,this.popularDocs(), "title")
+				break
 			case 'Recent':
 				docs = this.search(searchField,this.recentDocs(), "title")
 				break

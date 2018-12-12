@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import { Alert } from 'reactstrap';
 import { connect } from 'react-redux';
 import { fetchDoc } from '../Actions/docActions';
 import { fetchTabooList } from '../Actions/tabooActions';
@@ -14,7 +15,8 @@ class Document extends Component {
       body: this.props.body,
       id: this.props.location.state.id,
       view: this.props.location.state.view,
-      owner: this.props.location.state.owner  
+      owner: this.props.location.state.owner,
+      clean: true  
     }
 
     this.onChange = this.onChange.bind(this);
@@ -49,16 +51,26 @@ class Document extends Component {
     const x = this.props.words
     let tabooWords = []
     x.map(x => tabooWords.push(x.word));
-    let editedBody = this.state.body;
+    let currentBody = this.state.body;
+    let editedBody = currentBody;
 
     for(let i = 0; i < tabooWords.length; i++){
       let edit = new RegExp('\\b('+tabooWords[i]+')\\b',"gi"); 
       editedBody = editedBody.replace(edit, "UNK");
     }
+    if(currentBody == editedBody){
+      this.setState({
+        body: editedBody,
+        clean: true
+      })
+    }
 
-    this.setState({
-      body: editedBody
-    })
+    else{
+      this.setState({
+        body: editedBody,
+        clean: false
+      })
+    }
   }
 
   render() {
@@ -74,6 +86,7 @@ class Document extends Component {
       <div>
         <DocNav owner={this.state.owner} body={this.state.body} id={this.state.id} edit={this.edit} viewHistory={this.onChangeHist}/> 
         <div className="doc-bg">
+              {!this.state.clean && <Alert color="danger">Please remove taboo words!</Alert>}
               <form>
                 <div>
                   {textarea}
