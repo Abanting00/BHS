@@ -89,7 +89,7 @@ class DashboardCard extends Component {
 				<Button color="info" onClick={this.toggle} style={{display: "block", margin: "0 auto"}}>Open Doc</Button>        		
 				<hr />
               	<CardText>
-		            <small className="text-muted">Last updated {new Date(this.props.modified).toUTCString()}</small>
+		            <small className="text-muted">Last updated {new Date(this.props.modified).toLocaleString()}</small>
 	          	</CardText>
 
 	          	<Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
