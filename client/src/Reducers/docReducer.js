@@ -45,6 +45,11 @@ export default function(state = intialState, action) {
 				...state,
 				status: action.payload
 			}
+		case DOC_TYPES.DELETE_MEMBER:
+			return {
+				...state,
+				status: action.payload
+			}
 		default: 
 			return state;
 	}

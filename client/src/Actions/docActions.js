@@ -117,7 +117,7 @@ export const addMember = (docid,username) => dispatch => {
 		headers: header
 	}
 
-	fetch(`http://localhost:8000/api/docs/${docid}/addmember/${username}`, reqOptions)
+	fetch(`http://localhost:8000/api/docs/${docid}/member/${username}`, reqOptions)
 		.then(res => res.json())
 		.then(doc => {
 			dispatch({
@@ -126,3 +126,20 @@ export const addMember = (docid,username) => dispatch => {
 			});
 		})
 }
+
+export const deleteMember = (docid,userid) => dispatch => {
+	const header = authHeader();
+	const reqOptions = {
+		method: 'DELETE',
+		headers: header
+	}
+	
+	fetch(`http://localhost:8000/api/docs/${docid}/member/${userid}`, reqOptions)
+	.then(res => res.json())
+	.then(res => 
+		dispatch({
+			type: DOC_TYPES.DELETE_MEMBER,
+			payload: res
+		})
+	);
+};

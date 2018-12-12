@@ -3,6 +3,7 @@ import { USER_TYPES } from '../Actions/types';
 const intialState = {
 	users: [],
 	user: {},
+	invites: [],
 	status: false,
 	exists: false
 }
@@ -33,7 +34,37 @@ export default (state = intialState, action) => {
 			return {
 				...state,
 				users: action.payload.data
-			}
+			};
+		case USER_TYPES.FETCH_INVITES:
+			return {
+				...state,
+				invites: action.payload.data
+			};
+		case USER_TYPES.FETCH_COMPLAINTS:
+			return {
+				...state,
+				invites: action.payload.data
+			};
+		case USER_TYPES.NEW_INVITE:
+			return {
+				...state,
+				success: action.payload
+			};
+		case USER_TYPES.NEW_COMPLAINT:
+			return {
+				...state,
+				success: action.payload
+			};
+		case USER_TYPES.REMOVE_INVITE:
+			return {
+				...state,
+				success: action.payload
+			};
+		case USER_TYPES.REMOVE_COMPLAINT:
+			return {
+				...state,
+				success: action.payload
+			};
 		default:
 			return state;
 	}

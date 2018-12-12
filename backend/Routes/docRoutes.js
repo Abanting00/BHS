@@ -38,7 +38,7 @@ router.put('/docs/incviews/:id',docController.inc_views);
 router.delete('/docs/remove/:id',docController.doc_delete);
 
 // add new member to document
-router.put('/docs/:id/addmember/:name',docController.add_member);
+router.put('/docs/:id/member/:name',docController.add_member);
 
 // remove member
 router.delete('/docs/:docid/member/:userid', docController.remove_member);
