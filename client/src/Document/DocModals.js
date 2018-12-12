@@ -30,7 +30,7 @@ class DocModals extends Component {
 			return <tr key={history._id}>
 		            <th scope="row">{history.version}</th>
 		            <td>{history.modified_by}</td>
-		            <td>{new Date(history.date_modified).toUTCString()}</td>
+		            <td>{new Date(history.date_modified).toLocaleString()}</td>
 		            <td>
 		            	<Button onClick={() => {this.props.viewHistory(history.body)}} color="info">View</Button>
 		            </td>
