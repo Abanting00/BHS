@@ -38,10 +38,10 @@ router.put('/invite/:userid/doc/:docid', UserController.new_invite);
 router.delete('/invite/:userid/doc/:docid', UserController.remove_invite);
 
 // Add New Pending Complaint
-router.put('/complaint/:ownerid/user/:userid', UserController.new_complaints);
+router.put('/complaint/:ownerid/user/:userid/doc/:docid', UserController.new_complaints);
 
 // Delete Complaints
-router.delete('/complaint/:ownerid/user/:userid', UserController.remove_complaints);
+router.delete('/complaint/:ownerid/user/:userid/doc/:docid', UserController.remove_complaints);
 
 // Get Invite List
 router.get('/invite/:userid', UserController.invite_list);

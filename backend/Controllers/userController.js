@@ -166,10 +166,24 @@ exports.complaint_list = (req,res) => {
 		if(err)
 			return res.json({success:false, error:err, data:[]})
 
-		User.find({'_id': {$in: user.complaints}}, (err,docs) => {
+		let data = {
+			users:[],
+			docs:[]
+		};
+
+		User.find({'_id': {$in: user.complaints.users}}, (err,users) => {
 			if(err)
-				return res.json({success:false, error:err, data:[]});
-			return res.json({success:true, data:docs});
+				return res.json({success:false, error:err, data:data});
+
+			data.users = users;
+
+			Doc.find({'_id': {$in: user.complaints.docs}}, (err,docs) => {
+				if(err)
+					return res.json({success:false, error:err, data:data});
+				
+				data.docs = docs;
+					return res.json({success:true, data:data});			
+			});
 		});
 	});
 }
@@ -199,15 +213,21 @@ exports.new_complaints = (req,res) => {
 			return res.json({success:false, error:err})
 
 		User.findById(req.params.userid,(err,user) => {
-			if (err) 
+			if (err)
 				return res.json({success: false, error: err})
 			
-			owner.complaints.push(user._id);
-			owner.complaint_body.push(req.body.message);
-			owner.save(err => {
-				if(err)
-					return res.json({success:false, error:err})
-				return res.json({success:true, message: "Successfully Added Complaints."})
+			Doc.findById(req.params.docid,(err,doc) => {
+				if (err) 
+					return res.json({success: false, error: err})
+
+				owner.complaints.users.push(user._id);
+				owner.complaints.docs.push(doc._id);
+
+				owner.save(err => {
+					if(err)
+						return res.json({success:false, error:err})
+					return res.json({success:true, message: "Successfully Added Complaints."})
+				})
 			});
 		})
 	})	
@@ -224,9 +244,11 @@ exports.remove_invite = (req,res) => {
 
 exports.remove_complaints = (req,res) => {
 	User.findByIdAndUpdate(req.params.ownerid,
-		{ $pull: {
-			'complaints': req.params.userid, 
-			'complaint_body': req.body.message
+		{ 'complaints': {
+			$pull: {
+				'users': req.params.userid,
+				'docs': req.params.docid
+			}
 		}}, { multi: true },(err,user) =>{
 			if(err)
 				return res.json({success:false, error:err})

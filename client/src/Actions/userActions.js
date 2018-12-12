@@ -149,14 +149,14 @@ export const inviteUser = (docid,userid) => dispatch => {
 		})
 }
 
-export const complaintUser = (ownerid,userid) => dispatch => {
+export const complaintUser = (ownerid,userid,docid) => dispatch => {
 	const header = authHeader();
 	const reqOptions = {
 		method: 'PUT',
 		headers: header
 	}
 
-	fetch(`http://localhost:8000/api/complaint/${ownerid}/user/${userid}`, reqOptions)
+	fetch(`http://localhost:8000/api/complaint/${ownerid}/user/${userid}/doc/${docid}`, reqOptions)
 		.then(res => res.json())
 		.then(res => {
 			dispatch({
@@ -183,15 +183,14 @@ export const deleteInvite = (docid,userid) => dispatch => {
 	);
 };
 
-export const deleteComplaint = (ownerid,userid,message) => dispatch => {
+export const deleteComplaint = (ownerid,userid,docid) => dispatch => {
 	const header = authHeader();
 	const reqOptions = {
 		method: 'DELETE',
-		headers: header,
-		body: JSON.stringify(message)
+		headers: header
 	}
 
-	fetch(`http://localhost:8000/api/complaint/${ownerid}/doc/${userid}`, reqOptions)
+	fetch(`http://localhost:8000/api/complaint/${ownerid}/user/${userid}/doc/${docid}`, reqOptions)
 	.then(res => res.json())
 	.then(res => 
 		dispatch({
