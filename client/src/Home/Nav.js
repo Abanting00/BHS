@@ -9,11 +9,6 @@ const Login = () => {
 	) 
 };
 
-const About = () => {
-	return (
-		<NavLink href="/About">About</NavLink>
-	)
-};
 
 const Register = () => {
 	return (
@@ -25,16 +20,29 @@ const HomeNav = (path) => {
 	return (
 		<Nav className="ml-auto" navbar>
 			<NavItem>
-				<NavLink href="/About">About</NavLink>
+				<NavLink href="/about">About</NavLink>
 			</NavItem>
 			<NavItem>
-				{path.path === '/register' && <Login /> &&<About />}
+				{path.path === '/register' && <Login />}
 				{path.path === '/' && <Register />}
-				{path.path === '/About' && <About />}
 			</NavItem>
 		</Nav>
 		)
 };
+
+const AboutNav = () => {
+	return (
+		<Nav className="ml-auto" navbar>
+			<NavItem>
+				<NavLink href='/register'>Register</NavLink>
+			</NavItem>
+			<NavItem>
+				<NavLink href='/'>Login</NavLink>
+			</NavItem>
+		</Nav>
+
+		);
+}
 
 const DashboardNav = () => {
 	return (
@@ -51,7 +59,6 @@ const DashboardNav = () => {
 
 const NavSwitch = (path) => {
 	let currPath = path.path
-	console.log("currpath", currPath)
 	if((currPath === '/register') || (currPath === '/')){
 		return (
 			<HomeNav path = {currPath}/>
@@ -60,10 +67,10 @@ const NavSwitch = (path) => {
 	return (
 		<DashboardNav />
 	)}
-	else if((currPath === '/About') || (currPath === '/')){
-		return (
-			<HomeNav path = {currPath} />
-		)}
+	else if(currPath === '/about'){
+		return(
+			<AboutNav />
+	)}
 };
 
 const GeneralNav = (path) => {

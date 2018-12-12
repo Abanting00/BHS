@@ -6,6 +6,7 @@ import Document from './Document/Document';
 import Register from './Home/Register';
 import Navs from './Home/Nav';
 import Inbox from './Main/Inbox';
+import About from './Home/About';
 
 class Routes extends Component {
 	render() {
@@ -19,6 +20,7 @@ class Routes extends Component {
 					<Route path='/document' component={Document}/>
 					<Route path='/register' component={Register}/>
 					<Route path='/inbox' component={Inbox}/>
+					<Route path='/about' component={About}/>
 				</Switch>
 				</div>
 			</Router>
