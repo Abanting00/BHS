@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Navbar, NavbarBrand, Nav, NavItem, NavLink } from 'reactstrap';
 import { Logout } from "../Helper/authHeader";
 import { withRouter } from 'react-router-dom';
+import Inbox from '../Main/Inbox'
 
 const Login = () => {
 	return (
@@ -47,9 +48,7 @@ const AboutNav = () => {
 const DashboardNav = () => {
 	return (
 		<Nav className="ml-auto" navbar>
-			<NavItem>
-				<NavLink href='/inbox'>Inbox</NavLink>
-			</NavItem>
+			<Inbox />
 			<NavItem>
 				<NavLink href="/" onClick = {()=>Logout()}>Logout</NavLink>
 			</NavItem>

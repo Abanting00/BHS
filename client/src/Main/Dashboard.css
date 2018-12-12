@@ -73,3 +73,9 @@
 	float: right;
 	cursor: pointer;
 }
+
+.dashicons{
+    padding: 10px 20px 0px 15px;
+    font-size: 23px;
+    cursor: pointer;
+}
