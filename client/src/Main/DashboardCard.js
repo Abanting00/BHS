@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { changeStatus } from '../Actions/docActions';
 import { Redirect } from 'react-router';
 import { getUserID, getUserRole } from '../Helper/authHeader';
+import { fetchUserById } from '../Actions/userActions';
 
 class DashboardCard extends Component {
 	constructor(props) {
@@ -45,6 +46,7 @@ class DashboardCard extends Component {
 		this.setState({
 			modal: !this.state.modal
 		});
+		this.props.fetchUserById(this.props.locked_by);
 	}
 
 	toggleEdit() {
@@ -58,6 +60,7 @@ class DashboardCard extends Component {
 	
 	render() {
 		let screen;
+		let locked;
 		if (this.state.edit){
 			screen = <Redirect 
 						to={{
@@ -68,6 +71,14 @@ class DashboardCard extends Component {
 								members: this.props.members ,
 								owner: this.state.owner
 							}}}/>
+		}
+
+		if(!this.props.user){
+			locked = ''
+		}
+
+		else{
+			locked = this.props.user.fname +(' ')+this.props.user.lname
 		}
 
 		return (
@@ -102,7 +113,7 @@ class DashboardCard extends Component {
 						<p className="text-center">
 						  Status: {!this.state.locked ? <span style={{color: 'green'}}>Unlocked</span> : <span style={{color: 'red'}}>Locked</span>}
 						</p>
-						{this.state.locked && <p className="text-center">Locked by: {this.props.locked_by}</p>}
+						{this.state.locked && <p className="text-center">Locked by: {locked}</p>}
 					</ModalBody>
 					<ModalFooter>
 						{!this.state.locked ? <Button color="primary" onClick={this.toggleEdit}>Edit Doc</Button> : <Button color="primary" disabled onClick={this.toggleEdit}>Edit Doc</Button>}
@@ -115,7 +126,8 @@ class DashboardCard extends Component {
 }
 
 const mapStateToProps = state => ({
-	status: state.docs.status
+	status: state.docs.status,
+	user: state.users.user
 });
 
-export default connect(mapStateToProps, { changeStatus })(DashboardCard);
+export default connect(mapStateToProps, { changeStatus, fetchUserById })(DashboardCard);

@@ -30,6 +30,17 @@ exports.user_by_username = (req, res) => {
 
 }
 
+// Find user by ID
+exports.user_by_id = (req, res) => {
+	User.findById(req.params.id, (err,user) => {
+		if(err)
+			return res.json({success:false, error:err});
+		if(user)
+			return res.json({success:true, data:user});
+		return res.json({success: false, data:{}});
+	});
+};
+
 // Login a user based on their username and password
 exports.user_login = (req, res) => {
 	const {username,password} = req.body;
@@ -88,6 +99,7 @@ exports.user_update_img = (req, res) => {
 	});
 };
 
+// Update user interests
 exports.user_update_interests = (req, res) => {
 	const {username, interests} = req.body;
 	const query = {username: username}
@@ -98,7 +110,6 @@ exports.user_update_interests = (req, res) => {
 		return res.json({success: true})
 	});
 };
-
 
 // Update users's role
 exports.user_update_role = (req, res) => {

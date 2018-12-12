@@ -10,6 +10,9 @@ router.get('/users', UserController.user_list);
 // Get user by username
 router.get('/user/:name', UserController.user_by_username);
 
+// Get user by id
+router.get('/user/findbyid/:id',UserController.user_by_id);
+
 // Login a User by username and password 
 router.post('/login', UserController.user_login);
 

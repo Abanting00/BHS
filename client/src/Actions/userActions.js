@@ -36,7 +36,6 @@ export const registerUser = (userData) => dispatch => {
 	fetch('http://localhost:8000/api/register', reqOptions)
 		.then(res => res.json()) //getting response and changing to JSON
 		.then(user => {
-			console.log(user);
 			dispatch({
 				type: USER_TYPES.REGISTER_USER,
 				payload: user.success
@@ -62,6 +61,21 @@ export const fetchUser =  (username) => dispatch => {
 			resolve();
 		})
 	})
+};
+
+export const fetchUserById = (userid) => dispatch => {
+	const reqOptions = {
+		method: 'GET'
+	}
+
+	fetch(`http://localhost:8000/api/user/findbyid/${userid}`, reqOptions)
+		.then(res => res.json())
+		.then(user => {
+			dispatch({
+				type: USER_TYPES.FETCH_USER_BY_ID,
+				payload: user
+			})
+		})	
 };
 
 export const fetchUsers = () => dispatch => {
