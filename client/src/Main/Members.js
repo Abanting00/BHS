@@ -3,7 +3,7 @@ import { Button, Alert, Modal, ModalHeader, ModalBody } from 'reactstrap';
 import { CardColumns, Card, CardTitle, CardText, Col, Form, FormGroup, Input } from 'reactstrap';
 import { connect } from 'react-redux';
 import { getUserRole } from '../Helper/authHeader';
-import { fetchUsers } from '../Actions/userActions';
+import { fetchUsers, inviteUser } from '../Actions/userActions';
 import { addMember } from '../Actions/docActions';
 
 class Members extends Component {
@@ -27,7 +27,8 @@ class Members extends Component {
 	}
 
 	onAdd(docid,userid) {
-		this.props.addMember(docid,userid);
+		console.log("hai", docid, userid);
+		this.props.inviteUser(docid,userid);
 	}
 
 	onChange(e) {
@@ -55,7 +56,7 @@ class Members extends Component {
 					        	<span style={{fontWeight: "600"}}>Interests: </span> 
 					        	{user.interests.join(', ')} 
 					        </CardText>
-					        {isdoc ? <Button color="info" onClick={() => this.onAdd(this.props.docid,user.username)}>Invite</Button> : <div></div>}
+					        {isdoc ? <Button color="info" onClick={() => this.onAdd(this.props.docid,user._id)}>Invite</Button> : <div></div>}
 				      </Card>
 			});
 
@@ -144,4 +145,4 @@ const mapStateToProps = state => ({
 });
 
 
-export default connect(mapStateToProps, { fetchUsers, addMember })(Members);
+export default connect(mapStateToProps, { fetchUsers, addMember, inviteUser })(Members);
