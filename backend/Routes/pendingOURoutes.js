@@ -10,4 +10,6 @@ router.get('/pendingOU', PendingOUController.pending_list);
 router.post('/pendingOU/:guest', PendingOUController.add_guest);
 
 // Remove a guest user from pending OU list
-router.delete('/pendingOU/:guest'), PendingOUController.delete_guest);
+router.delete('/pendingOU/:guest', PendingOUController.delete_guest);
+
+module.exports = router;
