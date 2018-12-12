@@ -20,6 +20,8 @@ class Inbox extends Component {
 		this.onClickInv = this.onClickInv.bind(this);
 		this.onClickAccept = this.onClickAccept.bind(this);
 		this.onClickDecline = this.onClickDecline.bind(this);
+		this.onClickRemoveUser = this.onClickRemoveUser.bind(this);
+		this.onClickDoNothing = this.onClickDoNothing.bind(this);
 	}
 
  	componentWillMount() {
@@ -52,6 +54,15 @@ class Inbox extends Component {
 		this.props.deleteInvite(docid,userid)
 	}
 
+	onClickRemoveUser(ownerid,docid,userid){
+		this.props.deleteMember(docid,userid)
+		this.props.deleteComplaint(ownerid,userid,docid)
+	}
+
+	onClickDoNothing(ownerid,docid,userid){
+		this.props.deleteComplaint(ownerid,userid,docid)	
+	}
+
 	render() {
 		const invites = this.props.invites.map(doc => {
 			return <tr key={doc._id}>
@@ -64,8 +75,8 @@ class Inbox extends Component {
 		const complaints = this.props.user_complaints.map(user => {
 			return <tr key={user._id}>
 					<td>{user.fname} {user.lname}</td>
-					<td><Button color="success" onClick={() => console.log("Accept")}>Remove User</Button></td>
-					<td><Button color="danger" onClick={() => console.log("Decline")}>Do nothing</Button></td>
+					<td><Button color="success" onClick={() => console.log("remove")}>Remove User</Button></td>
+					<td><Button color="danger" onClick={() => console.log("nothing")}>Do nothing</Button></td>
 				</tr>
 		})
 
@@ -109,7 +120,8 @@ class Inbox extends Component {
 
 const mapStateToProps = state => ({
   invites: state.users.invites,
-  user_complaints: state.users.user_complaints
+  user_complaints: state.users.user_complaints,
+  doc_compalaints: state.users.doc_compalaints
 });
 
 export default connect(
