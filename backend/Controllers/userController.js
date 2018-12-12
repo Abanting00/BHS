@@ -1,4 +1,5 @@
 const User = require('../Models/UsersModel');
+const Doc = require('../Models/DocsModel');
 const bcrpyt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const randtoken = require('rand-token');
@@ -146,3 +147,89 @@ exports.new_user = (req, res) => {
 			});
 		});
 };
+
+exports.invite_list = (req,res) => {
+	User.findById(req.params.userid,(err,user) => {
+		if(err)
+			return res.json({success:false, error:err, data:[]})
+
+		Doc.find({'_id': {$in: user.invites}}, (err,docs) => {
+			if(err)
+				return res.json({success:false, error:err, data:[]});
+			return res.json({success:true, data:docs});
+		});
+	});
+}
+
+exports.complaint_list = (req,res) => {
+	User.findById(req.params.userid,(err,user) => {
+		if(err)
+			return res.json({success:false, error:err, data:[]})
+
+		User.find({'_id': {$in: user.complaints}}, (err,docs) => {
+			if(err)
+				return res.json({success:false, error:err, data:[]});
+			return res.json({success:true, data:docs});
+		});
+	});
+}
+
+exports.new_invite = (req,res) => {
+	User.findById(req.params.userid,(err,user) => {
+		if(err)
+			return res.json({success:false, error:err})
+
+		Doc.findById(req.params.docid,(err,doc) => {
+			if (err) 
+				return res.json({success: false, error: err})
+			
+			user.invites.push(doc._id);
+			user.save(err => {
+				if(err)
+					return res.json({success:false, error:err})
+				return res.json({success:true, message: "Successfully Added New Invite."})
+			});
+		})
+	})	
+}
+
+exports.new_complaints = (req,res) => {
+	User.findById(req.params.ownerid,(err,owner) => {
+		if(err)
+			return res.json({success:false, error:err})
+
+		User.findById(req.params.userid,(err,user) => {
+			if (err) 
+				return res.json({success: false, error: err})
+			
+			owner.complaints.push(user._id);
+			owner.complaint_body.push(req.body.message);
+			owner.save(err => {
+				if(err)
+					return res.json({success:false, error:err})
+				return res.json({success:true, message: "Successfully Added Complaints."})
+			});
+		})
+	})	
+}
+
+exports.remove_invite = (req,res) => {
+	User.findByIdAndUpdate(req.params.userid,
+		{ $pull: {'invites': req.params.docid }}, (err,user) =>{
+			if(err)
+				return res.json({success:false, error:err})
+			return res.json({success:true, message: "Removed Doc Invite."});
+		})
+}
+
+exports.remove_complaints = (req,res) => {
+	User.findByIdAndUpdate(req.params.ownerid,
+		{ $pull: {
+			'complaints': req.params.userid, 
+			'complaint_body': req.body.message
+		}}, { multi: true },(err,user) =>{
+			if(err)
+				return res.json({success:false, error:err})
+			return res.json({success:true, message: "Removed User Complaints."});
+		})
+}

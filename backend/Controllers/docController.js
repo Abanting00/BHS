@@ -111,6 +111,16 @@ exports.add_member = (req,res) => {
 	})	
 }
 
+// Remove member in a document
+exports.remove_member = (req,res) => {
+	Doc.findByIdAndUpdate(req.params.docid,
+		{ $pull: {'members': req.params.userid }}, (err,user) =>{
+			if(err)
+				return res.json({success:false, error:err})
+			return res.json({success:true, message: "Removed User as Member."});
+		})
+}
+
 //Change the body
 exports.change_body = (req,res,next) => {
 	Doc.findById(req.params.id,(err,docs) => {

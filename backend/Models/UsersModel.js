@@ -38,7 +38,10 @@ const UserSchema = new Schema({
 	interests: {
 		type: Array,
 		default: []
-	}
+	},
+	invites: [{ type: Schema.Types.ObjectId, ref: 'DocModel'}],
+	complaints: [{type: Schema.Types.ObjectId, ref: 'UserModel'}],
+	complaint_body: [String]
 });
 
 
