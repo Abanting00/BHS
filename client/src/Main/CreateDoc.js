@@ -57,7 +57,11 @@ class CreateDoc extends Component {
 	render() {
 		let screen;
 		if (this.state.redirect){
-			screen = <Redirect to={{pathname: '/document', state: {id: this.props.doc.data._id }}}/>
+			screen = <Redirect to={{pathname: '/document', 
+			state: {
+				id: this.props.doc.data._id,
+				owner: getUserID()
+			}}}/>
 		}
 
 		if (getUserRole() === 'GU'){

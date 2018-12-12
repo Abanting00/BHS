@@ -80,7 +80,7 @@ class Members extends Component {
 	}
 
 	render() {
-		let users = this.props.users.filter(user => {return user.role != 'GU'});
+		let users = this.props.users.filter(user => {return user.role != 'GU' && user.role != 'SU'});
 		let field = this.state.searchField.toLowerCase();
 		// users = this.search(field, users, "Interests")
 

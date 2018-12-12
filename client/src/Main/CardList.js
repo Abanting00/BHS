@@ -21,6 +21,9 @@ class CardList extends Component {
 			if(doc.permission === 'Shared' && doc.members.includes(userID)){
 				return true;
 			}
+			if(doc.permission === 'Shared' && !doc.members.includes(userID)){
+				return false;
+			}
 			return !(doc.permission === 'Private' && getUserID() !== doc.owner);
 		});
 		
@@ -38,6 +41,9 @@ class CardList extends Component {
 		sortedDocs = sortedDocs.filter(doc => {
 			if(doc.permission === 'Shared' && doc.members.includes(userID)){
 				return true;
+			}
+			if(doc.permission === 'Shared' && !doc.members.includes(userID)){
+				return false;
 			}
 			return !(doc.permission === 'Private' && getUserID() !== doc.owner);
 		});
