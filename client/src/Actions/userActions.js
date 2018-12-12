@@ -167,35 +167,41 @@ export const complaintUser = (ownerid,userid,docid) => dispatch => {
 }
 
 export const deleteInvite = (docid,userid) => dispatch => {
-	const header = authHeader();
-	const reqOptions = {
-		method: 'DELETE',
-		headers: header
-	}
-	
-	fetch(`http://localhost:8000/api/invite/${userid}/doc/${docid}`, reqOptions)
-	.then(res => res.json())
-	.then(res => 
-		dispatch({
-			type: USER_TYPES.REMOVE_INVITE,
-			payload: res
-		})
-	);
+	return new Promise((resolve, reject) => {
+		const header = authHeader();
+		const reqOptions = {
+			method: 'DELETE',
+			headers: header
+		}
+		
+		fetch(`http://localhost:8000/api/invite/${userid}/doc/${docid}`, reqOptions)
+		.then(res => res.json())
+		.then(res => 
+			{dispatch({
+				type: USER_TYPES.REMOVE_INVITE,
+				payload: res
+			})
+			resolve();}
+		);
+	})
 };
 
 export const deleteComplaint = (ownerid,userid,docid) => dispatch => {
-	const header = authHeader();
-	const reqOptions = {
-		method: 'DELETE',
-		headers: header
-	}
+	return new Promise((resolve, reject) => {
+		const header = authHeader();
+		const reqOptions = {
+			method: 'DELETE',
+			headers: header
+		}
 
-	fetch(`http://localhost:8000/api/complaint/${ownerid}/user/${userid}/doc/${docid}`, reqOptions)
-	.then(res => res.json())
-	.then(res => 
-		dispatch({
-			type: USER_TYPES.REMOVE_COMPLAINT,
-			payload: res
-		})
-	);
+		fetch(`http://localhost:8000/api/complaint/${ownerid}/user/${userid}/doc/${docid}`, reqOptions)
+		.then(res => res.json())
+		.then(res => 
+			{dispatch({
+				type: USER_TYPES.REMOVE_COMPLAINT,
+				payload: res
+			})
+			resolve();}
+		);
+	})
 }

@@ -48,22 +48,49 @@ class Inbox extends Component {
 	onClickAccept(docid, userid) {
 		this.props.addMember(docid, getUser().username)
 		this.props.deleteInvite(docid,userid)
+			.then(res => this.props.fetchInvites())
 	}
 
 	onClickDecline(docid,userid) {
 		this.props.deleteInvite(docid,userid)
+			.then(res => this.props.fetchInvites())
 	}
 
-	onClickRemoveUser(ownerid,docid,userid){
+	onClickRemoveUser(docid,userid){
 		this.props.deleteMember(docid,userid)
-		this.props.deleteComplaint(ownerid,userid,docid)
+		this.props.deleteComplaint(getUserID(),userid,docid)
+			.then(res => this.props.fetchComplaints())
 	}
 
-	onClickDoNothing(ownerid,docid,userid){
-		this.props.deleteComplaint(ownerid,userid,docid)	
+	onClickDoNothing(docid,userid){
+		this.props.deleteComplaint(getUserID(),userid,docid)
+			.then(res => this.props.fetchComplaints())	
+	}
+
+	showComplaints() {
+		let owner = getUserID();
+		let result = [];
+		const users = this.props.user_complaints;
+		const docs = this.props.doc_complaints;
+		
+		for(let i = 0; i < users.length; i++){
+			let x = {user: users[i], doc: docs[i]}
+			result.push(x)  
+		}
+
+		result = result.map(x => {
+			return (<tr>
+						<td>{x.user.fname} {x.user.lname}</td>
+						<td>{x.doc.title}</td>
+						<td><Button color="danger" onClick={() => this.onClickRemoveUser(x.doc._id, x.user._id)}>Remove User</Button></td>
+						<td><Button onClick={() => this.onClickDoNothing(x.doc._id, x.user._id)}>Do nothing</Button></td>
+					</tr>)});
+
+		return result;
 	}
 
 	render() {
+		const complaints = this.showComplaints();
 		const invites = this.props.invites.map(doc => {
 			return <tr key={doc._id}>
 					<td>{doc.title}</td>
@@ -71,14 +98,6 @@ class Inbox extends Component {
 					<td><Button name="decline"color="danger" onClick={() => this.onClickDecline(doc._id,getUserID())}>Decline</Button></td>
 				</tr>
 		});
-
-		const complaints = this.props.user_complaints.map(user => {
-			return <tr key={user._id}>
-					<td>{user.fname} {user.lname}</td>
-					<td><Button color="success" onClick={() => console.log("remove")}>Remove User</Button></td>
-					<td><Button color="danger" onClick={() => console.log("nothing")}>Do nothing</Button></td>
-				</tr>
-		})
 
 		return (
 			<div>
@@ -121,7 +140,7 @@ class Inbox extends Component {
 const mapStateToProps = state => ({
   invites: state.users.invites,
   user_complaints: state.users.user_complaints,
-  doc_compalaints: state.users.doc_compalaints
+  doc_complaints: state.users.doc_complaints
 });
 
 export default connect(
