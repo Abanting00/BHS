@@ -14,7 +14,6 @@ class CreateDoc extends Component {
 			title: "",
 			description: "",
 			permission: "Public",
-			locked: false,
 			redirect: false
 		}
 
@@ -42,7 +41,6 @@ class CreateDoc extends Component {
     		title: this.state.title,
     		description: this.state.description,
     		permission: this.state.permission,
-    		is_locked: this.state.locked,
     		body: "",
     		owner: getUserID()
     	}
@@ -87,10 +85,6 @@ class CreateDoc extends Component {
 			        </FormGroup>
 			        <FormGroup>
 			          	<Label>Lock</Label>
-			          	<Input type="select" name="locked" onChange={this.onChange}>
-			           		<option>No</option>
-			            	<option>Yes</option>
-			          	</Input>
 			        </FormGroup>
 			        <hr />
 					<Button type="submit" color="primary" style={{float: "right"}}>Create Doc</Button>

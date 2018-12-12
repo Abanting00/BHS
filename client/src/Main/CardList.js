@@ -23,7 +23,7 @@ class CardList extends Component {
 			if(doc.permission === 'Shared' && doc.members.includes(userID)){
 				return true;
 			}
-			return getUserRole() === 'SU' || !(doc.permission === 'Private' && getUserID() !== doc.owner);
+			return !(doc.permission === 'Private' && getUserID() !== doc.owner);
 		});
 
 		return sortedDocs;

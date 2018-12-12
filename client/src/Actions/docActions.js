@@ -2,20 +2,23 @@ import { DOC_TYPES } from './types';
 import { authHeader } from '../Helper/authHeader';
 
 export const fetchDocs = () => dispatch => {
-	const header = authHeader();
-	const reqOptions = {
-		method: 'GET',
-		headers: header
-	}
+	return new Promise((resolve, reject) => {
+		const header = authHeader();
+		const reqOptions = {
+			method: 'GET',
+			headers: header
+		}
 
-	fetch("http://localhost:8000/api/docs/", reqOptions)
-		.then(res => res.json())
-		.then(docs => {
-			dispatch({
-				type: DOC_TYPES.FETCH_DOCS,
-				payload: docs
-			});
-		})
+		fetch("http://localhost:8000/api/docs/", reqOptions)
+			.then(res => res.json())
+			.then(docs => {
+				dispatch({
+					type: DOC_TYPES.FETCH_DOCS,
+					payload: docs
+				});
+				resolve();
+			})
+	});
 };
 
 export const fetchDoc = (docid) => dispatch => {

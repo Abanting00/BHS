@@ -7,6 +7,7 @@ import CreateDoc from './CreateDoc';
 import Search from './Search';
 import Members from './Members';
 import Profile from './Profile.js';
+import Taboo from './Taboo';
 
 class Dashboard extends Component {
     constructor(props) {
@@ -16,14 +17,22 @@ class Dashboard extends Component {
         option: 'Recent',
         search: false,
         members: false,
-        settings: false
+        settings: false,
+        taboo: false
       };
 
       this.toggle = this.toggle.bind(this);
       this.toggleSettings = this.toggleSettings.bind(this);
       this.toggleSearch = this.toggleSearch.bind(this);
+      this.toggleTaboo = this.toggleTaboo.bind(this);
       this.toggleMembers = this.toggleMembers.bind(this);
       this.onClickMode = this.onClickMode.bind(this);
+  }
+
+  toggleTaboo() {
+     this.setState({
+      taboo: !this.state.taboo
+    });
   }
 
   toggleSettings() {
@@ -64,8 +73,10 @@ class Dashboard extends Component {
                   <Row>
                     <Col xs="auto" style={{padding: 0}}>
                       <div className="dashbox">
+                        <i className="material-icons settings" onClick={this.toggleSettings}>settings</i>
+                        <br />
                         <Row className="avatar-box">
-                          <Col sm="12" md={{ size: 8, offset: 4 }} style={{padding: 0}}>
+                          <Col sm="12" md={{ size: 6, offset: 5 }} style={{padding: 0}}>
                             <img className="avatar" src={avatar} alt="Avatar"/>
                           </Col>
                         </Row>
@@ -83,7 +94,7 @@ class Dashboard extends Component {
                           <div className="center-icons">
                             <i className="material-icons icons" onClick={this.toggleSearch}>search</i>
                             <i className="material-icons icons" onClick={this.toggleMembers}>people</i>
-                            <i className="material-icons icons" onClick={this.toggleSettings}>settings</i>
+                            <i className="material-icons icons" onClick={this.toggleTaboo}>list_alt</i>
                           </div>
                       </div>
                     </Col>
@@ -96,6 +107,7 @@ class Dashboard extends Component {
               </div>
               <Members docmember={false} members={this.state.members} toggle={this.toggleMembers} />
               <Profile open={this.state.settings} toggle={this.toggleSettings} />
+              <Taboo open={this.state.taboo} toggle={this.toggleTaboo} />
               <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
                 <ModalHeader toggle={this.toggle}>Create Document</ModalHeader>
                 <ModalBody>

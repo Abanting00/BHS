@@ -78,7 +78,7 @@ class DocModals extends Component {
 					</Table>
 				</ModalBody>
 				<ModalFooter>
-	            	{this.props.owner ? <Button color="danger" onClick={this.onClickAdd}>Invite Member</Button> : <div></div>}
+	            	{this.props.owner ? <Button color="info" onClick={this.onClickAdd}>Invite Member</Button> : <div></div>}
 	            </ModalFooter>
 	            <Members docid={this.props.id} docmember={true} members={this.state.addMember} toggle={this.onClickAdd} />
 			</Modal>
@@ -93,9 +93,6 @@ const MemberTable = (members) => {
 		return <tr key={user._id}>
 	            <th scope="row">{user.fname} {user.lname}</th>
 	            <td>{user.username}</td>
-	            <td>
-	            	<Button color="danger">Report</Button>
-	            </td>
 	            <td>
 	            	<Button color="danger">Complain</Button>
 	            </td>
