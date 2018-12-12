@@ -50,6 +50,7 @@ const docRoutes = require('./Routes/docRoutes');
 const historyRoutes = require('./Routes/historyRoutes');
 const tabooRoutes = require('./Routes/tabooRoutes');
 const pendingRoutes = require('./Routes/pendingRoutes');
+const pendingOURoutes = require('./Routes/pendingOURoutes');
 
 
 app.use("/api", userRoutes);
@@ -57,6 +58,7 @@ app.use("/api", validateUser, docRoutes);
 app.use("/api", validateUser, historyRoutes);
 app.use("/api", validateUser, tabooRoutes);
 app.use("/api", pendingRoutes);
+app.use("/api", pendingOURoutes);
 
 // launch our backend into a port
 app.listen(API_PORT, () => console.log(`LISTENING ON PORT ${API_PORT}`));
