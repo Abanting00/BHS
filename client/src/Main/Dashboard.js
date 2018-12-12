@@ -82,6 +82,8 @@ class Dashboard extends Component {
                         </Row>
                       
                         <div className="text-center dashboard-links">
+                          <button name="Popular" className="dash-text" onClick={this.onClickMode}>Popular</button>
+                          <br />
                           <button name="Recent" className="dash-text"  onClick={this.onClickMode}>Recent</button>
                           <br />
                           <button name="Create" className="dash-text"  onClick={this.toggle}>Create</button>
