@@ -29,7 +29,7 @@ router.put('/docs/body/:id',docController.change_body, historyController.new_ver
 router.get('/docs/owner/:id',docController.get_owner);
 
 // change current document status
-router.put('/docs/changestatus/:id',docController.change_status);
+router.put('/docs/changestatus/:id/user/:userid',docController.change_status);
 
 // increase views by one
 router.put('/docs/incviews/:id',docController.inc_views);

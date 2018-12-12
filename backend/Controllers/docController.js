@@ -65,7 +65,8 @@ exports.change_status = (req,res) => {
  		if(err)
  			return res.json({success:false, error:err});
  		docs.is_locked = !(docs.is_locked);
- 		
+ 		docs.locked_by = req.params.userid
+
  		docs.save(err => {
  			if(err)
 				return res.json({success:false, error:err});
