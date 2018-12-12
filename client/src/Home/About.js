@@ -10,9 +10,10 @@ class About extends Component {
                 <div className="info">
                     <h1>About</h1>
                     <div className="main-text">
-                        <p>B.H.S' File Document Sharing System is developed by Abigal
-                            Carlos & Josue for Jie Wie's CS322
+                        <p>B.H.S' File Document Sharing System is developed by Abigail Banting,
+                            Carlos Saravia & Josue Hernandez for Jie Wie's <a href="http://www-cs.engr.ccny.cuny.edu/~csjie/322.html">322</a>
                         </p>
+                        <p>View Source on: <b> <a href="https://github.com/Abanting00/BHS">Github</a> </b></p>
                     </div>
                 </div>
 
