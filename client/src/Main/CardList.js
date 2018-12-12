@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { CardColumns } from 'reactstrap';
+import { CardDeck } from 'reactstrap';
 import DashboardCard from './DashboardCard';
 import { connect } from 'react-redux';
 import { fetchDocs } from '../Actions/docActions';
@@ -53,6 +53,13 @@ class CardList extends Component {
 	 	});
 	 	return results;
 	}
+
+	chunker(n) {
+	   return (p, c, i) => {
+	       (p[i/n|0] = p[i/n|0] || []).push(c);
+	       return p;
+	   };
+	}
 	
 	render() {
 		const searchField = this.props.search.toLowerCase();
@@ -74,10 +81,15 @@ class CardList extends Component {
 
 		}
 
+		docs = docs.reduce(this.chunker(3),[]);
+		docs = docs.map(group => {
+			return <CardDeck>
+						<DocCards data={group} />
+					</CardDeck>
+		})
+
 		return (
-			<CardColumns style={{paddingRight: '20px'}}> 
-               <DocCards data={docs} />
-			</CardColumns>
+			<div style={{paddingLeft: '20px'}}>{docs}</div>
 		);
 	}
 }
