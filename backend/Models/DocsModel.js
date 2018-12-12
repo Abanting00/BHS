@@ -31,7 +31,7 @@ const DocSchema = new Schema ({
 	is_locked: {
 		type: Boolean,
 		required: true,
-		default: false
+		default: true
 	},
 
 	permission: {
