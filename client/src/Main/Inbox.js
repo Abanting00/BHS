@@ -61,7 +61,7 @@ class Inbox extends Component {
 				</tr>
 		});
 
-		const complaints = this.props.complaints.map(user => {
+		const complaints = this.props.user_complaints.map(user => {
 			return <tr key={user._id}>
 					<td>{user.fname} {user.lname}</td>
 					<td><Button color="success" onClick={() => console.log("Accept")}>Remove User</Button></td>
@@ -109,7 +109,7 @@ class Inbox extends Component {
 
 const mapStateToProps = state => ({
   invites: state.users.invites,
-  complaints: state.users.complaints,
+  user_complaints: state.users.user_complaints
 });
 
 export default connect(
