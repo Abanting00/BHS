@@ -4,7 +4,7 @@ import { Table, Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'react
 import { connect } from 'react-redux';
 import { fetchInvites, fetchComplaints, deleteInvite, deleteComplaint } from '../Actions/userActions';
 import { addMember, deleteMember } from '../Actions/docActions';
-import { getUserID, getUser } from '../Helper/authHeader';
+import { getUserID, getUser, getUserRole } from '../Helper/authHeader';
 
 
 class Inbox extends Component {
@@ -101,10 +101,10 @@ class Inbox extends Component {
 
 		return (
 			<div>
-				<NavItem>
+				{getUserRole() != 'GU'&& <NavItem>
 					<i className="material-icons dashicons" name="report" onClick={this.onClickReport}>report</i>
 					<i className="material-icons dashicons" name="invitations" onClick={this.onClickInv}>mail</i>
-				</NavItem>
+				</NavItem>}
 				<Modal
 					size="md"
 					isOpen={this.state.report}
