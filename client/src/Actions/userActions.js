@@ -205,3 +205,20 @@ export const deleteComplaint = (ownerid,userid,docid) => dispatch => {
 		);
 	})
 }
+
+export const updateRole = (user) => dispatch => {
+	const header = authHeader();
+	const reqOptions = {
+		method: 'PUT',
+		headers: header
+	}
+
+	fetch(`http://localhost:8000/api/user/updateRole/${userid}`)
+		.then(res => res.json())
+		.then(user => {
+			dispatch({
+				type: USER_TYPES.UPDATE_USER_ROLE,
+				payload: user
+			})
+		})
+}

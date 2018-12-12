@@ -68,6 +68,11 @@ export default (state = intialState, action) => {
 				...state,
 				success: action.payload
 			};
+		case USER_TYPES.UPDATE_USER_ROLE:
+			return {
+				...state,
+				success: action.payload
+			}
 		default:
 			return state;
 	}
