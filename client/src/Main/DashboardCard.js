@@ -96,7 +96,7 @@ class DashboardCard extends Component {
 					<ModalHeader toggle={this.toggle}>{this.props.title}</ModalHeader>
 					<ModalBody>
                         {(this.state.owner ||(this.props.locked_by == getUserID())) ? 
-                        	<i className="material-icons" style={{float: "right"}} onClick={this.toggleNested}>settings</i> : <div></div>}
+                        	<i className="material-icons" style={{float: "right", cursor:"pointer"}} onClick={this.toggleNested}>settings</i> : <div></div>}
                         <br />
 
                         <Modal isOpen={this.state.nestedModal} toggle={this.toggleNested}  className={this.props.className}>
@@ -116,7 +116,7 @@ class DashboardCard extends Component {
 						{this.state.locked && <p className="text-center">Locked by: {locked}</p>}
 					</ModalBody>
 					<ModalFooter>
-						{!this.state.locked ? <Button color="primary" onClick={this.toggleEdit}>Edit Doc</Button> : <Button color="primary" disabled onClick={this.toggleEdit}>Edit Doc</Button>}
+						{!this.state.locked ? <Button color="primary" onClick={this.toggleEdit}>Edit Doc</Button> : <Button color="primary" style ={{cursor:"no-drop"}}disabled onClick={this.toggleEdit}>Edit Doc</Button>}
 					</ModalFooter>
 				</Modal> 
 				{screen}
